@@ -15,7 +15,7 @@ option = {
     legend: {
         orient: 'vertical',
         left: 'left',
-        data:['iphone3','iphone4','iphone5']
+        data:['iphone3']
     },
     visualMap: {
         min: 0,
@@ -41,7 +41,7 @@ option = {
             name: 'iphone3',
             type: 'map',
             mapType: 'china',
-            roam: false,
+            roam: true,
             label: {
                 normal: {
                     show: true
@@ -50,9 +50,64 @@ option = {
                     show: true
                 }
             },
+            itemStyle:{
+               normal:{label:{show:true}},
+               emphasis:{label:{show:true}}
+           },
+           xAxis: {
+                type: 'category',
+                data: ['西藏']
+                // 注意这里不建议写成 [5, 6, 9, 13, 19, 33]，否则不能被 markPoint / markLine 用『具体值』索引到。
+            },
+            markPoint:{
+                symbolSize: 5,
+                itemStyle: {
+                   normal: {
+                       borderColor: '#87cefa',
+                       borderWidth: 1,            // 标注边线线宽，单位px，默认为1
+                       label: {
+                        show: false
+                       }
+                   },
+                   emphasis: {
+                      borderColor: '#1e90ff',
+                       borderWidth: 5,
+                       label: {
+                           show: false
+                       }
+                   }
+               },
+                data:[
+                    {
+                        coord: ['西藏',randomData() ],
+                        itemStyle: {
+                            normal: {color: 'rgb(41,60,85)'}
+                        }
+                    }
+                ],
+                label: {
+                    normal: {
+                        show:true,
+                        formatter: function (param) {
+                            return param != null ? Math.round(param.value) : '';
+                        },
+                        textStyle:{
+                            color:'#f00'
+                        }
+                    },
+                    emphasis:{
+                        show:true
+                    }
+                },
+                 tooltip: {
+                    formatter: function (param) {
+                        return param.name + '<br>' + (param.data.coord || '');
+                    }
+                }
+            },
             data:[
-                {name: '北京',value: randomData() },
-                {name: '天津',value: randomData() },
+                // {name: '北京',value: randomData() },
+                // {name: '天津',value: randomData() },
                 {name: '上海',value: randomData() },
                 {name: '重庆',value: randomData() },
                 {name: '河北',value: randomData() },
@@ -78,69 +133,13 @@ option = {
                 {name: '贵州',value: randomData() },
                 {name: '广东',value: randomData() },
                 {name: '青海',value: randomData() },
-                {name: '西藏',value: randomData() },
                 {name: '四川',value: randomData() },
                 {name: '宁夏',value: randomData() },
                 {name: '海南',value: randomData() },
                 {name: '台湾',value: randomData() },
                 {name: '香港',value: randomData() },
-                {name: '澳门',value: randomData() }
-            ]
-        },
-        {
-            name: 'iphone4',
-            type: 'map',
-            mapType: 'china',
-            label: {
-                normal: {
-                    show: true
-                },
-                emphasis: {
-                    show: true
-                }
-            },
-            data:[
-                {name: '北京',value: randomData() },
-                {name: '天津',value: randomData() },
-                {name: '上海',value: randomData() },
-                {name: '重庆',value: randomData() },
-                {name: '河北',value: randomData() },
-                {name: '安徽',value: randomData() },
-                {name: '新疆',value: randomData() },
-                {name: '浙江',value: randomData() },
-                {name: '江西',value: randomData() },
-                {name: '山西',value: randomData() },
-                {name: '内蒙古',value: randomData() },
-                {name: '吉林',value: randomData() },
-                {name: '福建',value: randomData() },
-                {name: '广东',value: randomData() },
-                {name: '西藏',value: randomData() },
-                {name: '四川',value: randomData() },
-                {name: '宁夏',value: randomData() },
-                {name: '香港',value: randomData() },
-                {name: '澳门',value: randomData() }
-            ]
-        },
-        {
-            name: 'iphone5',
-            type: 'map',
-            mapType: 'china',
-            label: {
-                normal: {
-                    show: true
-                },
-                emphasis: {
-                    show: true
-                }
-            },
-            data:[
-                {name: '北京',value: randomData() },
-                {name: '天津',value: randomData() },
-                {name: '上海',value: randomData() },
-                {name: '广东',value: randomData() },
-                {name: '台湾',value: randomData() },
-                {name: '香港',value: randomData() },
-                {name: '澳门',value: randomData() }
+                {name: '澳门',value: randomData() },
+                {name: '西藏',value: randomData() }
             ]
         }
     ]
