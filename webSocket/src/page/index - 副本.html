@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>index page</title>
+  <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="/node_modules//bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="vertical-center">
+        <div class="container">
+            <p>&nbsp;</p>
+            <form role="form" id="chat_form" onsubmit="sendMessage(); return false;">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="message" id="message"
+                           placeholder="Type text to echo in here" value="" />
+                </div>
+                <button type="button" id="send" class="btn btn-primary"
+                        onclick="sendMessage();">
+                    Send!
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+  // $(function(){
+  //   $.ajax({
+  //     url:"http://localhost:8000",
+  //     data:{"ming":"name"},
+  //     type:"POST",
+  //     success:function(data){
+  //       console.log(data);
+  //     }
+  //   })
+  // });
+</script>
+
+</html>
