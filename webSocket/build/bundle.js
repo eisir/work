@@ -35019,6 +35019,8 @@
 	    return Math.round(Math.random()*1000);
 	}
 
+
+
 	option = {
 	    title: {
 	        text: 'iphone销量',
@@ -35069,14 +35071,15 @@
 	            itemStyle:{
 	               normal:{label:{show:true}},
 	               emphasis:{label:{show:true}}
-	           },
-	           xAxis: {
+	            },   
+	            xAxis: {
 	                type: 'category',
-	                data: ['西藏']
+	                data: ['上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南','安徽','山东','新疆','江苏','浙江','江西','湖北','广西','甘肃','山西','内蒙古','陕西','吉林','福建','贵州','广东','青海','四川','宁夏','海南','台湾','香港','澳门','西藏']
 	                // 注意这里不建议写成 [5, 6, 9, 13, 19, 33]，否则不能被 markPoint / markLine 用『具体值』索引到。
-	            },
+	            },         
 	            markPoint:{
-	                symbolSize: 5,
+	                symbolSize: 20,
+	                symbol: 'pin',
 	                itemStyle: {
 	                   normal: {
 	                       borderColor: '#87cefa',
@@ -35095,7 +35098,9 @@
 	               },
 	                data:[
 	                    {
-	                        coord: ['西藏',randomData() ],
+	                        name: '西藏',
+	                        coord: ['西藏',1000],
+	                        value:randomData(),
 	                        itemStyle: {
 	                            normal: {color: 'rgb(41,60,85)'}
 	                        }
