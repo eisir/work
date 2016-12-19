@@ -12,5 +12,8 @@ var myChart = echarts.init(document.getElementById('root'));
 myChart.setOption(Option);
 
 
+var mp=myChart
+
+
 
 

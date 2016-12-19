@@ -1,20 +1,22 @@
 <template>
   <div class="layout">
     <h1>数据展示</h1>
-    <div class="data-pannel">
-      <div id="main"></div>
+    <div class="pannel-body">
+      <div class="data-pannel">
+        <mapdata></mapdata>
+      </div>
+      <div class="data-pannel">
+        
+      </div>
     </div>      
   </div>
 </template>
 
 <script>
-import echarts from 'echarts/lib/echarts'
-// import Option from '../options/option.js'
-
+import mapdata from './chartsCHild/mapdata'
   export default{
-    mounted(){
-      var myChart = echarts.init(document.getElementById('main'));
-      myChart.setOption(Option);
+    components:{
+      mapdata
     }
   }
 </script>
@@ -25,14 +27,23 @@ import echarts from 'echarts/lib/echarts'
   }
   .layout{
     display: flex;
-    flex-direction: column;
     height: 100%;
+    flex-direction: column;
+  }
+  .pannel-body{
+    display: flex;
+    flex:1;
+    flex-direction: row;
     justify-content: center;
   }
   .data-pannel{
     width: 80%;
     flex:1;
-    margin: 0 auto 40px;
+    margin: 0 auto;
     background-color: #fff;
+  }
+  .main{
+    width: 100%;
+    height: 100%;
   }
 </style>

@@ -114,7 +114,8 @@ for(var page in pages) {
     // filter：将数据过滤，然后返回符合要求的数据，Object.keys是获取JSON对象中的每个key
     excludeChunks: Object.keys(pages).filter(item => {
       return (item != page)
-    })
+    }),
+    chunksSortMode: 'dependency'
   }
   // 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象
   module.exports.plugins.push(new HtmlWebpackPlugin(conf))

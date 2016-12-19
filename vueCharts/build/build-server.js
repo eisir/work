@@ -7,7 +7,9 @@ fs = require("fs"),
 util = require('util');
 var port=8093;
 let open = require('open')
-let root="../dist"
+let root="../"
+
+let filePath='/dist'
 
 http.createServer(function (req, res) {
 var pathname=path.resolve(__dirname,root+url.parse(req.url).pathname);
@@ -60,4 +62,4 @@ fs.exists(pathname,function(exists){
     open(url)
 });
 
-console.log("Server running at http://localhost:"+port);
+console.log("Server running at http://localhost:"+port+filePath);

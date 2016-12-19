@@ -1,14 +1,10 @@
+var echarts = require('echarts/lib/echarts');
 require('echarts/map/js/china.js');
 function randomData() {
     return Math.round(Math.random()*1000);
 }
 
 option = {
-    title: {
-        text: 'iphone销量',
-        subtext: '纯属虚构',
-        left: 'center'
-    },
     tooltip: {
         trigger: 'item'
     },
@@ -26,7 +22,7 @@ option = {
         calculable: true
     },
     toolbox: {
-        show: true,
+        show: false,
         orient: 'vertical',
         left: 'right',
         top: 'center',
@@ -53,14 +49,9 @@ option = {
             itemStyle:{
                normal:{label:{show:true}},
                emphasis:{label:{show:true}}
-           },
-           xAxis: {
-                type: 'category',
-                data: ['西藏']
-                // 注意这里不建议写成 [5, 6, 9, 13, 19, 33]，否则不能被 markPoint / markLine 用『具体值』索引到。
             },
             markPoint:{
-                symbolSize: 5,
+                symbolSize: 50,
                 itemStyle: {
                    normal: {
                        borderColor: '#87cefa',
@@ -79,10 +70,13 @@ option = {
                },
                 data:[
                     {
-                        coord: ['西藏',randomData() ],
+                        coord: [114.07,22.62],
+                        name:'西藏',
+                        value:100,
                         itemStyle: {
                             normal: {color: 'rgb(41,60,85)'}
-                        }
+                        },
+                        zindex:1
                     }
                 ],
                 label: {

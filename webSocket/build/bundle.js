@@ -58,6 +58,9 @@
 	myChart.setOption(Option);
 
 
+	var mp=myChart
+
+
 
 
 
@@ -34678,8 +34681,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.26.1@css-loader/index.js!./style.css", function() {
-				var newContent = require("!!./../../node_modules/.0.26.1@css-loader/index.js!./style.css");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./style.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./style.css");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -35014,17 +35017,13 @@
 /* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var echarts = __webpack_require__(2);
 	__webpack_require__(111);
 	function randomData() {
 	    return Math.round(Math.random()*1000);
 	}
 
 	option = {
-	    title: {
-	        text: 'iphone销量',
-	        subtext: '纯属虚构',
-	        left: 'center'
-	    },
 	    tooltip: {
 	        trigger: 'item'
 	    },
@@ -35042,7 +35041,7 @@
 	        calculable: true
 	    },
 	    toolbox: {
-	        show: true,
+	        show: false,
 	        orient: 'vertical',
 	        left: 'right',
 	        top: 'center',
@@ -35069,14 +35068,9 @@
 	            itemStyle:{
 	               normal:{label:{show:true}},
 	               emphasis:{label:{show:true}}
-	           },
-	           xAxis: {
-	                type: 'category',
-	                data: ['西藏']
-	                // 注意这里不建议写成 [5, 6, 9, 13, 19, 33]，否则不能被 markPoint / markLine 用『具体值』索引到。
 	            },
 	            markPoint:{
-	                symbolSize: 5,
+	                symbolSize: 50,
 	                itemStyle: {
 	                   normal: {
 	                       borderColor: '#87cefa',
@@ -35095,10 +35089,13 @@
 	               },
 	                data:[
 	                    {
-	                        coord: ['西藏',randomData() ],
+	                        coord: [114.07,22.62],
+	                        name:'西藏',
+	                        value:100,
 	                        itemStyle: {
 	                            normal: {color: 'rgb(41,60,85)'}
-	                        }
+	                        },
+	                        zindex:1
 	                    }
 	                ],
 	                label: {
