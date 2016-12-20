@@ -35023,6 +35023,8 @@
 	    return Math.round(Math.random()*1000);
 	}
 
+
+
 	option = {
 	    tooltip: {
 	        trigger: 'item'
@@ -35068,9 +35070,21 @@
 	            itemStyle:{
 	               normal:{label:{show:true}},
 	               emphasis:{label:{show:true}}
+<<<<<<< HEAD
 	            },
 	            markPoint:{
 	                symbolSize: 50,
+=======
+	            },   
+	            xAxis: {
+	                type: 'category',
+	                data: ['上海','重庆','河北','河南','云南','辽宁','黑龙江','湖南','安徽','山东','新疆','江苏','浙江','江西','湖北','广西','甘肃','山西','内蒙古','陕西','吉林','福建','贵州','广东','青海','四川','宁夏','海南','台湾','香港','澳门','西藏']
+	                // 注意这里不建议写成 [5, 6, 9, 13, 19, 33]，否则不能被 markPoint / markLine 用『具体值』索引到。
+	            },         
+	            markPoint:{
+	                symbolSize: 20,
+	                symbol: 'pin',
+>>>>>>> 4fba2249b07caf404e457d5bbf9cd83066a1c8bf
 	                itemStyle: {
 	                   normal: {
 	                       borderColor: '#87cefa',
@@ -35089,9 +35103,15 @@
 	               },
 	                data:[
 	                    {
+<<<<<<< HEAD
 	                        coord: [114.07,22.62],
 	                        name:'西藏',
 	                        value:100,
+=======
+	                        name: '西藏',
+	                        coord: ['西藏',1000],
+	                        value:randomData(),
+>>>>>>> 4fba2249b07caf404e457d5bbf9cd83066a1c8bf
 	                        itemStyle: {
 	                            normal: {color: 'rgb(41,60,85)'}
 	                        },
