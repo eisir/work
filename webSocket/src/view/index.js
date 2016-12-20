@@ -4,6 +4,7 @@ require('echarts/lib/component/tooltip');
 require('echarts/lib/component/title');
 require('../css/style.css');
 let Option=require('../js/mapOption.js');
+require('../js/connect.js');
 
 
 // 基于准备好的dom，初始化echarts实例
@@ -12,7 +13,7 @@ var myChart = echarts.init(document.getElementById('root'));
 myChart.setOption(Option);
 
 
-var mp=myChart
+// var mp=myChart
 
 
 

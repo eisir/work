@@ -4,7 +4,7 @@ function randomData() {
     return Math.round(Math.random()*1000);
 }
 
-console.log(getPosByGeo())
+// console.log(getPosByGeo())
 
 option = {
     tooltip: {

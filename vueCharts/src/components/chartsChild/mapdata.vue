@@ -8,11 +8,10 @@ import Option from '../../options/mapOption.js'
   export default{
     data(){
       return{
-        id:'main-'+Math.floor((new Date()).getTime()*Math.random())
+        id:'main_'+Math.round((new Date()).getTime()*Math.random())
       }
     },
     mounted(){
-      console.log(this.id);
       var myChart = echarts.init(document.getElementById(this.id));
       myChart.setOption(Option);
     }
@@ -20,5 +19,5 @@ import Option from '../../options/mapOption.js'
 </script>
 <style>
   
-  
+
 </style>
