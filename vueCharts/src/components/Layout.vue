@@ -31,28 +31,39 @@
     </header>
     <div class="pannel-body">
       <div class="data-pannel">
-        <mapdata></mapdata>
+        <xd-list></xd-list>
       </div>
       <div class="data-pannel">
         <mapdata></mapdata>
       </div>
       <div class="data-pannel">
-        <mapdata></mapdata>
+        <line-grid></line-grid>
       </div>
       <div class="data-pannel">
-        <area-stack></area-stack>
+        <fif-trade></fif-trade>
       </div>
     </div>      
   </div>
 </template>
 
 <script>
+require('echarts/lib/chart/line');
+require('echarts/lib/chart/bar');
+require('echarts/lib/chart/pie');
+require('echarts/lib/chart/scatter');
+require('echarts/lib/chart/radar');
 import mapdata from './chartsCHild/mapdata'
 import areaStack from './chartsCHild/areaStack'
+import lineGrid from './chartsCHild/lineGrid'
+import fifTrade from './chartsCHild/fifTrade'
+import xdList from './chartsCHild/xdList'
   export default{
     components:{
       mapdata,
-      areaStack
+      areaStack,
+      lineGrid,
+      fifTrade,
+      xdList
     }
   }
 </script>

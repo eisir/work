@@ -7,9 +7,9 @@ fs = require("fs"),
 util = require('util');
 var port=8093;
 let open = require('open')
-let root="../"
+let root="../dist"
 
-let filePath='/dist'
+let filePath='/'
 
 http.createServer(function (req, res) {
 var pathname=path.resolve(__dirname,root+url.parse(req.url).pathname);
