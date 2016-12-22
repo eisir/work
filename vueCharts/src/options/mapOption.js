@@ -1,6 +1,11 @@
+import echarts from 'echarts/lib/echarts'
 import 'echarts/map/js/china.js'
 import getData from './getData'
 import geoCoordMap from './geoData'
+
+
+var provs=echarts.getMap('china').geoJson.features
+var prosD=provs.map(n=>({name:n.properties.name,cp:n.properties.cp}))
 
 
 var data = getData.data
@@ -38,7 +43,7 @@ option = {
         orient: 'vertical',
         y: 'bottom',
         x: 'right',
-        data: ['pm2.5'],
+        data: ['各省市今日进件情况'],
         textStyle: {
             color: '#fff'
         }

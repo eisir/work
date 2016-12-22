@@ -26,6 +26,14 @@ let option = {
         },
         data: [ '进件量','放款笔数', '申请金额','放款金额']
     },
+    dataZoom:[{
+        show:true,
+        height:20,
+        xAxisindex:[0],
+        "start": 80,
+        "end": 100,
+        bottom:10
+    }],
     grid: {
         left: '6%',
         right: '15%',
