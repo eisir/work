@@ -6,7 +6,7 @@
 
 <script>
 import echarts from 'echarts/lib/echarts'
-import Option from '../../options/pieOption.js'
+import Setting from '../../options/pieOption.js'
 
   export default{
     data(){
@@ -16,7 +16,21 @@ import Option from '../../options/pieOption.js'
     },
     mounted(){
       var myChart = echarts.init(document.getElementById(this.id));
-      myChart.setOption(Option);
+      
+      setInterval(function(){
+        let n=Math.ceil(Math.random()*4)
+        fetch('/static/data/bm_2/data_'+n+'.json').then(function(response) {
+          return response.json()
+        }).then((json)=>{
+
+          Setting._data=json;
+          myChart.setOption(Setting.options());
+
+        }).catch(function(ex) {
+          console.log('parsing failed', ex)
+        })
+      }, 1000);
+      
     }
   }
 </script>

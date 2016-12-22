@@ -1,4 +1,4 @@
-import 'echarts/lib/chart/pie'
+
 let option = {
     title:{
         text:'便民交易比例图',
@@ -27,7 +27,13 @@ let option = {
             labelLine: {
             },
             center:['50%','60%'],
-            data:[{
+            data:[]
+        }
+    ]
+};
+
+let Setting={
+    _data:[{
                 "name":"信用卡还款无卡还款",
                 "value":59.0
             },{
@@ -42,9 +48,11 @@ let option = {
             },{
                 "name":"信用卡还款胖终端",
                 "value":654.0
-            }]
-        }
-    ]
-};
+            }],
+    options:function(){
+        option.series[0].data=this._data;
+        return option;
+    }
+}
 
-module.exports=option;
+module.exports=Setting;

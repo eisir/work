@@ -1,4 +1,4 @@
-
+import filter from '../utils/filter'
 let option
 option = {
     title: {
@@ -20,16 +20,14 @@ option = {
         bottom: '3%',
         containLabel: true
     },
-    xAxis : [
-        {
+    xAxis : {
             type : 'category',
             "axisTick": {
                 "show": false
             },
             boundaryGap : true,
             data : ['周一','周二','周三','周四','周五','周六','周日']
-        }
-    ],
+    },
     yAxis : {
         type : 'value',
         "axisTick": {
@@ -53,8 +51,28 @@ option = {
             type:'line',
             stack: '总量',
             areaStyle: {normal: {}},
-            data:[120, 132, 101, 134, 90, 230, 210]
+            data:[]
         }
     ]
 };
-export default option
+
+function fmData(data){
+    var res={xData:[],seriesData:[]}
+    for(let i=0;i<data.length;i++){
+        res.seriesData.push(data[i].yAxis)
+        res.xData.push(filter.getLastTimeShort(data[i].xAxis))
+    }
+    return res
+}
+
+let Setting={
+    index:0,
+    _data:[90, 120, 39  , 50, 120, 120,211],
+    options:function(){
+        option.series[0].data=fmData(this._data).seriesData.splice(this.index,10);
+        option.xAxis.data=fmData(this._data).xData.splice(this.index,10);
+        return option;
+    }
+}
+
+module.exports=Setting;

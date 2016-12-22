@@ -64,7 +64,7 @@ option = {
         }
     },
     series: [{
-        name: 'pm2.5',
+        name: '各省市今日进件情况',
         type: 'scatter',
         coordinateSystem: 'geo',
         data: convertData(data),

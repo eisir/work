@@ -45,6 +45,7 @@ fs.exists(pathname,function(exists){
 		}	
 		fs.readFile(pathname,function (err,data){
 		res.end(data);
+		console.log(data);
 		});
 		} else {
 		res.writeHead(404, {"Content-Type": "text/html"});

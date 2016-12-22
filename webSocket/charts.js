@@ -14,15 +14,25 @@ wss.on('connection',function(ws){
     msg=message;
   })
 
-
-
   var i=0;
   var t=setInterval(function(){
-    ws.send(i+"----"+msg);
-    i++
+    let readUrl='./static'+reqUrl+'/data_'+Math.ceil(Math.random()*4)+'.json'
+    fs.readFile(readUrl,"utf-8",function(err,data){
+      ws.send(data)
+      // ws.send(i+'-----')
+      i++
+    })
   }, 2000)
+  
+
+
+  // var i=0;
+  // var t=setInterval(function(){
+  //   ws.send(i+"----"+msg);
+  //   i++
+  // }, 2000)
   ws.on('close', function () {
         // closeSocket();
-        // clearInterval(t);
+        clearInterval(t);
     });
 })

@@ -1,9 +1,10 @@
 import filter from '../utils/filter'
+
 let option = {
-    color: ['#fe0000'],
+    color: ['#fe0000', '#00f0ff', '#00ff01','#ff00ff'],
 
     title: [{
-        text: '便民交易平均处理时长',
+        text: '全天信贷业务交易情况',
         left: 'center',
         top: '2%',
         textStyle: {
@@ -17,23 +18,26 @@ let option = {
     },
     legend: {
         orient: 'vertical',
-        bottom: '50%',
+        bottom: '30%',
         right:'0',
         textStyle: {
             color: '#3c3c3c',
-            fontSize:12
+            fontSize:16
         },
-        data: ['交易平均处理时长']
+        data: [ '进件量','放款笔数', '申请金额','放款金额']
     },
     grid: {
         left: '6%',
-        right: '22%',
+        right: '15%',
         top: '20%',
         bottom: '10%',
         containLabel: true
     },
     toolbox: {
-        "show": false
+        "show": false,
+        feature: {
+            saveAsImage: {}
+        }
     },
     xAxis: {
         type: 'category',
@@ -51,10 +55,10 @@ let option = {
                 fontSize:12
             }
         },
-        data: ['15:40', '15:45', '15:50', '15:55', '16:00', '16:05', '16:10','16:15']
+        data: []
     },
-    yAxis: {
-        name:'秒\n数',
+    yAxis: [{
+        name:'笔\n数',
         nameLocation:'middle',
         nameGap:'60',
         nameRotate:'0',
@@ -64,7 +68,6 @@ let option = {
         "axisLine": {
           show:false
         },
-        splitNumber:3,
         splitLine: {
             show: true,
             lineStyle: {
@@ -81,18 +84,61 @@ let option = {
             }
         },
         type: 'value'
-    },
-    series: [{
-        name: '交易平均处理时长',
+    },{
+        name:'房贷金额',
+        // max:800,
+        // min:0,
+        splitLine: {
+            show: true,
+            lineStyle: {
+                color: '#3c3c3c'
+            }
+        },
+        "axisLine": {
+          show:false
+        },
+        "axisTick": {
+            "show": false
+        },
+        axisLabel: {
+            textStyle: {
+                color: '#3c3c3c',
+                fontSize:20
+            }
+        },
+    }],
+    series: [ {
+        name: '进件量',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
+        data: []
+    },{
+        name: '放款笔数',
+        type: 'line',
+        symbolSize: 6,
+        symbol: 'circle',        
+        data: []
+    }, {
+        name: '申请金额',
+        type: 'line',
+        symbolSize: 6,
+        symbol: 'circle',
+        yAxisIndex: 1,
+        data: []
+    }, {
+        name: '放款金额',
+        type: 'line',
+        symbolSize: 6,
+        symbol: 'circle',
+        yAxisIndex: 1,
         data: []
     }]
 }
 
 function fmData(data){
     var res={xData:[],seriesData:[]}
+
     for(let i=0;i<data.length;i++){
         res.seriesData.push(data[i].yAxis)
         res.xData.push(filter.getLastTimeShort(data[i].xAxis))
@@ -100,12 +146,28 @@ function fmData(data){
     return res
 }
 
+
+
 let Setting={
     index:0,
     _data:[90, 120, 39  , 50, 120, 120,211],
     options:function(){
-        option.series[0].data=fmData(this._data).seriesData.splice(this.index,8);
-        option.xAxis.data=fmData(this._data).xData.splice(this.index,8);
+        if(this._data[0]){
+            option.series[0].data=fmData(this._data[0].data).seriesData;
+        }
+        if(this._data[2]){
+            option.series[1].data=fmData(this._data[2].data).seriesData;
+        }
+        if(this._data[1]){
+            option.series[2].data=fmData(this._data[1].data).seriesData;
+        }
+        if(this._data[3]){
+            option.series[3].data=fmData(this._data[0].data).seriesData;
+        }
+        
+
+        option.xAxis.data=fmData(this._data[0].data).xData;
+
         return option;
     }
 }

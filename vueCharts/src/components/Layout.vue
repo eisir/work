@@ -37,7 +37,7 @@
         <mapdata></mapdata>
       </div>
       <div class="data-pannel">
-        <line-grid></line-grid>
+        <xd-Allday></xd-Allday>
       </div>
       <div class="data-pannel">
         <fif-trade></fif-trade>
@@ -54,14 +54,14 @@ require('echarts/lib/chart/scatter');
 require('echarts/lib/chart/radar');
 import mapdata from './chartsCHild/mapdata'
 import areaStack from './chartsCHild/areaStack'
-import lineGrid from './chartsCHild/lineGrid'
+import xdAllday from './chartsCHild/xdAllday'
 import fifTrade from './chartsCHild/fifTrade'
 import xdList from './chartsCHild/xdList'
   export default{
     components:{
       mapdata,
       areaStack,
-      lineGrid,
+      xdAllday,
       fifTrade,
       xdList
     }

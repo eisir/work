@@ -6,32 +6,32 @@
     <div class="legend">
       <div class="item">
         <div class="number">
-         手机号
+         <p>手机号</p>
         </div>
         <div class="area">
-         地区
+         <p>订单号</p>
         </div>
         <div class="total">
-         申请金额
+         <p>申请金额</p>
         </div>
         <div class="time">
-         申请时间
+         <p>申请时间</p>
         </div>
       </div>
     </div>
     <div class="list">
       <div class="item" v-for="item in items">
         <div class="number">
-          {{item.number}}
+          <p>{{item.mobile}}</p>
         </div>
         <div class="area">
-          {{item.area}}
+          <p>{{item.custId}}</p>
         </div>
         <div class="total">
-          {{item.total}}
+          <p>{{item.retCode}}</p>
         </div>
         <div class="time">
-          {{item.time}}
+          <p>{{item.receiveTime|getLastTimeStr}}</p>
         </div>
       </div>
     </div>
@@ -43,77 +43,25 @@
     data(){
       return{
         id:'main_'+Math.round((new Date()).getTime()*Math.random()),
-        items:[
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          },
-          {
-            number:'188****7283',
-            area:'浙江',
-            total:'18000',
-            time:'2016-09-09 12:00'
-          }
-        ]
+        items:[]
       }
     },
     mounted(){
+      fetch('/static/data/bm_1/data_1.json').then(function(response) {
+        return response.json()
+      }).then((json)=>{
+        this.items=json
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      })
     }
   }
 </script>
-<style>
+<style scoped>
   .title{
     margin-bottom: 10px;
+    color:#ff4620;
+    font-size: 24px;
   }
   .item{
     display: flex;
@@ -121,11 +69,31 @@
   }
   .item>div{
     flex:1;
-    font-size: .6rem;
-    line-height: 1.125rem;
+    font-size: .8rem;
+    align-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .item>div p{
+    width: 100%;
+    margin: 0;
+  }
+  .legend{
+    margin-bottom: .2rem;
   }
   .legend .item>div{
     font-size: 18px;
   }
-
+  .main{
+    display: flex;
+    flex-direction: column;
+  }
+  .list{
+    flex:1;
+    display: flex;
+    flex-direction: column;
+  }
+  .list .item{
+    flex:1;
+  }
 </style>

@@ -4,7 +4,7 @@
 
 <script>
 import echarts from 'echarts/lib/echarts'
-import Option from '../../options/bmTimeOption.js'
+import Setting from '../../options/bmTimeOption.js'
   export default{
     data(){
       return{
@@ -13,7 +13,21 @@ import Option from '../../options/bmTimeOption.js'
     },
     mounted(){
       var myChart = echarts.init(document.getElementById(this.id));
-      myChart.setOption(Option);
+      // myChart.setOption(Option);
+      setInterval(function(){
+        // let n=Math.ceil(Math.random()*4)
+        fetch('/static/data/bm_4/data_1.json').then(function(response) {
+          return response.json()
+        }).then((json)=>{
+          Setting.index+=1
+          Setting._data=json;
+          myChart.setOption(Setting.options());
+
+        }).catch(function(ex) {
+          console.log('parsing failed', ex)
+        })
+      }, 1000);
+
     }
   }
 </script>
