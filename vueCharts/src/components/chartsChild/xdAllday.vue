@@ -25,7 +25,7 @@ import getData from '../../utils/getData';
       fetch('/static/data/xd_3/data_1.json').then(function(response) {
         return response.json()
       }).then((json)=>{
-        console.log(json)
+        // console.log(json)
 
         Setting._data=json;
         myChart.setOption(Setting.options());

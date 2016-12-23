@@ -1,28 +1,17 @@
 import echarts from 'echarts/lib/echarts'
 import 'echarts/map/js/china.js'
-import getData from './getData'
 import geoCoordMap from './geoData'
 
 
 var provs=echarts.getMap('china').geoJson.features
-var prosD=provs.map(n=>({name:n.properties.name,cp:n.properties.cp}))
+let temp={};
+provs.forEach(n=>{
+        temp[n.properties.name]=n.properties.cp;      
+})
+var geoData=temp
+// console.log(geoData);
 
 
-var data = getData.data
-
-var convertData = function(data) {
-    var res = [];
-    for (var i = 0; i < data.length; i++) {
-        var geoCoord = geoCoordMap[data[i].name];
-        if (geoCoord) {
-            res.push({
-                name: data[i].name,
-                value: geoCoord.concat(data[i].value)
-            });
-        }
-    }
-    return res;
-};
 let option
 
 option = {
@@ -37,7 +26,10 @@ option = {
         }
     },
     tooltip: {
-        trigger: 'item'
+        trigger: 'item',
+        formatter:function(params){            
+            return params.name+'：'+params.value[2]
+        }
     },
     legend: {
         orient: 'vertical',
@@ -51,7 +43,8 @@ option = {
     geo: {
         map: 'china',
         left:'10',
-        top:'20%',
+        top:'10%',
+        bottom: '10%',
         label: {
             emphasis: {
                 show: false
@@ -72,9 +65,9 @@ option = {
         name: '各省市今日进件情况',
         type: 'scatter',
         coordinateSystem: 'geo',
-        data: convertData(data),
+        data: [],
         symbolSize: function(val) {
-            return val[2] / 10;
+            return 3+(val[2] / 100);
         },
         label: {
             normal: {
@@ -83,23 +76,24 @@ option = {
                 show: false
             },
             emphasis: {
-                show: true
+                show: true,
+                formatter:function(val){
+                    return val[2]
+                }
             }
         },
         itemStyle: {
             normal: {
-                color: '#614f86'
+                color: '#fe0000'
             }
         }
     }, {
-        name: 'Top 5',
+        name: 'Top 10',
         type: 'effectScatter',
         coordinateSystem: 'geo',
-        data: convertData(data.sort(function(a, b) {
-            return b.value - a.value;
-        }).slice(0, 6)),
+        data: [],
         symbolSize: function(val) {
-            return val[2] / 10;
+            return 20+(val[2] / 500);
         },
         showEffectOn: 'render',
         rippleEffect: {
@@ -115,7 +109,7 @@ option = {
         },
         itemStyle: {
             normal: {
-                color: '#261742',
+                color: '#fe0000',
                 shadowBlur: 10,
                 shadowColor: '#333'
             }
@@ -125,4 +119,40 @@ option = {
     ]
 };
 
-module.exports=option;
+function fmData(data){
+    let res=[]
+    for(let i=0;i<data.length;i++){
+        let geoCoord = geoData[data[i].name]
+        if(geoCoord){
+            res.push({
+                name:data[i].name,
+                value: geoCoord.concat(data[i].value)
+            })
+        }
+    }
+    return res
+}
+
+
+let Setting={
+    index:0,
+    _data:[],
+    _option:option,
+    option:function(){
+       let _data1=fmData(this._data)
+       let _data2=fmData(this._data.splice(0, 10))
+       
+
+        return {
+            series:[
+            {
+                data:_data1
+            },{
+                data:_data2
+            }
+            ]
+        };
+    }
+}
+
+module.exports=Setting;

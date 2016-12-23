@@ -22,7 +22,7 @@ let option = {
             color: '#3c3c3c',
             fontSize:16
         },
-        data: ['房贷金额', '申请金额', '进件量']
+        data: [ '进件量','放款笔数', '申请金额','放款金额']
     },
     grid: {
         left: '6%',
@@ -85,23 +85,30 @@ let option = {
         type: 'value'
     },
     series: [{
-        name: '房贷金额',
+        name: '进件量',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
         data: [90, 50, 39, 50, 120, 120,811, 50, 39, 50, 120, 120,811, 50, 39]
-    }, {
+    },
+    {
+        name: '放款笔数',
+        type: 'line',
+        symbolSize: 6,
+        symbol: 'circle',        
+        data: [30,38,70, 162, 50, 87, 10, 147,160, 162, 50, 87, 90, 147,160]
+    },{
         name: '申请金额',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
         data: [70, 162, 50, 87, 90, 147,160, 162, 50, 87, 90, 147,160, 147,160]
-    }, {
-        name: '进件量',
+    },{
+        name: '放款金额',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
-        data: [10, 125, 80, 132, 187, 130,100, 125, 80, 132, 187, 130,100, 130,100]
+        data: [100,108,90, 50, 39, 50, 120, 120,811, 50, 39, 50, 120, 120,811]
     }]
 }
 

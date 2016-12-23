@@ -1,34 +1,7 @@
 <template>
   <div class="layout">
-    <div class="top_tips">
-      <span class="text">
-        新增用户数：88888
-      </span>
-      <span class="text">
-        交易总金额：888888
-      </span>
-      <span class="text">
-        交易总笔数：888888
-      </span>
-    </div>
-    <header>
-      <div class="item">
-        <h3>新增用户</h3>
-        <div class="count">88888</div>
-      </div>
-      <div class="item">
-        <h3>交易总金额</h3>
-        <div class="count">88888</div>
-      </div>
-      <div class="item">
-        <h3>交易总笔数</h3>
-        <div class="count">88888</div>
-      </div>
-      <div class="item">
-        <h3>活跃用户</h3>
-        <div class="count">88888</div>
-      </div>
-    </header>
+    <top></top> 
+    <head-el></head-el>
     <div class="pannel-body">
       <div class="data-pannel">
         <bm-list></bm-list>
@@ -48,12 +21,16 @@
 
 <script>
 import 'echarts'
+import top from './top'
+import headEl from './headEl'
 import bmPie from './chartsCHild/bmPie'
 import bmTrade from './chartsCHild/bmTrade'
 import bmTime from './chartsCHild/bmTime'
 import bmList from './chartsCHild/bmList'
   export default{
     components:{
+      top,
+      headEl,
       bmPie,
       bmTrade,
       bmTime,

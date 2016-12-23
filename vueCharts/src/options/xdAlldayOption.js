@@ -30,7 +30,7 @@ let option = {
         show:true,
         height:20,
         xAxisindex:[0],
-        "start": 80,
+        "start": 0,
         "end": 100,
         bottom:10
     }],
@@ -93,7 +93,7 @@ let option = {
         },
         type: 'value'
     },{
-        name:'房贷金额',
+        name:'放款金额',
         // max:800,
         // min:0,
         splitLine: {

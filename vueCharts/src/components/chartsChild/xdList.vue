@@ -155,7 +155,7 @@ import getData from '../../utils/getData';
     margin-bottom: .2rem;
   }
   .legend .item>div{
-    font-size: 18px;
+    font-size: .9rem;
   }
   .main{
     display: flex;
