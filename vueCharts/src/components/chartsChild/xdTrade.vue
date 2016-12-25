@@ -4,7 +4,7 @@
 
 <script>
 import echarts from 'echarts/lib/echarts'
-import Option from '../../options/fifOption.js'
+import Option from '../../options/xdTradeOption.js'
   export default{
     data(){
       return{

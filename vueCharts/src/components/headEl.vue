@@ -22,8 +22,9 @@
       </div>
       <div class="item">
         <h3>理财总金额</h3>
-        <div class="count"><span>￥</span>{{topData[5]}}</div>
+        <div class="count"><span>￥</span>{{topData[5]}}</div>{{textData}}
       </div>
+      
     </header>
 </template>
 <script>
@@ -44,8 +45,12 @@
         _this.topData=res
 
       }, 2000);
+    },
+    computed:{      
+      textData(){
+        return this.$store.state.textData
+      }
     }
-
   }
 </script>
 

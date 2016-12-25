@@ -27,8 +27,13 @@ option = {
     },
     tooltip: {
         trigger: 'item',
-        formatter:function(params){            
-            return params.name+'：'+params.value[2]
+        formatter:function(params){
+            if(params.value[2]) {
+                return params.name+'：'+params.value[2]
+            }else{
+                return params.name+'：'+params.value
+            }
+            
         }
     },
     legend: {
@@ -40,11 +45,22 @@ option = {
             color: '#fff'
         }
     },
+    visualMap: {
+        min: 0,
+        max: 2500,
+        left: 'left',
+        top: 'bottom',
+        itemHeight:100,
+        text: ['高','低'],           // 文本，默认为数值文本
+        calculable: true,
+        seriesIndex:2,
+        // color:['#f00','#fafafa'] 
+    },
     geo: {
         map: 'china',
-        left:'10',
-        top:'10%',
-        bottom: '10%',
+        left:'80',
+        top:'6%',
+        bottom: '0',
         label: {
             emphasis: {
                 show: false
@@ -67,7 +83,7 @@ option = {
         coordinateSystem: 'geo',
         data: [],
         symbolSize: function(val) {
-            return 3+(val[2] / 100);
+            return 3+(val[2] / 1000);
         },
         label: {
             normal: {
@@ -93,7 +109,7 @@ option = {
         coordinateSystem: 'geo',
         data: [],
         symbolSize: function(val) {
-            return 20+(val[2] / 500);
+            return 20+(val[2] / 1000);
         },
         showEffectOn: 'render',
         rippleEffect: {
@@ -114,9 +130,18 @@ option = {
                 shadowColor: '#333'
             }
         },
-        zlevel: 1
-    }
-    ]
+        zlevel: 2
+    },
+    {
+        name: '各省市今日进件情况',
+        type: 'map',
+        mapType: 'china',
+        left:'80',
+        top:'6%',
+        bottom:'0',
+        data:[],
+        zlevel:1
+    }]
 };
 
 function fmData(data){
@@ -140,15 +165,19 @@ let Setting={
     _option:option,
     option:function(){
        let _data1=fmData(this._data)
-       let _data2=fmData(this._data.splice(0, 10))
-       
+       let _data2=fmData(this._data.slice(0, 10))
 
         return {
+            visualMap:{
+                max:this._data[0].value
+            },
             series:[
             {
                 data:_data1
             },{
                 data:_data2
+            },{
+                data:this._data
             }
             ]
         };

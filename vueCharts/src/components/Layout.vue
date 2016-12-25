@@ -7,13 +7,13 @@
         <xd-list></xd-list>
       </div>
       <div class="data-pannel">
-        <mapdata></mapdata>
+        <xd-map></xd-map>
       </div>
       <div class="data-pannel">
         <xd-Allday></xd-Allday>
       </div>
       <div class="data-pannel">
-        <fif-trade></fif-trade>
+        <xd-trade></xd-trade>
       </div>
     </div>      
   </div>
@@ -21,22 +21,31 @@
 
 <script>
 import 'echarts'
+import getData from '../utils/getData';
+
 import top from './top'
 import headEl from './headEl'
-import mapdata from './chartsCHild/mapdata'
-import areaStack from './chartsCHild/areaStack'
+
+import xdMap from './chartsCHild/xdMap'
 import xdAllday from './chartsCHild/xdAllday'
-import fifTrade from './chartsCHild/fifTrade'
+import xdTrade from './chartsCHild/xdTrade'
 import xdList from './chartsCHild/xdList'
   export default{
     components:{
       top,
       headEl,
-      mapdata,
-      areaStack,
+      xdMap,
       xdAllday,
-      fifTrade,
+      xdTrade,
       xdList
+    },
+    mounted(){
+      // let url="ws://localhost:8081/xd_1"
+      //   getData(url,function(data){
+      //     console.log(data)
+      //   })
+        let _this=this
+      this.$store.dispatch('getData',1)
     }
   }
 </script>
@@ -86,6 +95,6 @@ import xdList from './chartsCHild/xdList'
   .main{
     width: 90%;
     margin: 0 auto;
-    height: 90%;
+    height: 98%;
   }
 </style>

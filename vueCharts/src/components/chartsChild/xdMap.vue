@@ -37,7 +37,7 @@ import Setting from '../../options/mapOption.js'
         Setting._data=_json;
         myChart.setOption(Setting.option());
 
-        this.items=_json.splice(0,10)
+        this.items=_json.slice(0,10)
 
 
       }).catch(function(ex) {
@@ -56,9 +56,9 @@ import Setting from '../../options/mapOption.js'
   }
   .dataList{
     position: absolute;
-    right: 4%;
+    right: 0;
     top: 10%;
-    width: 24%;
+    width: 18%;
     display:flex;
     flex-direction: column;
     height: 80%;

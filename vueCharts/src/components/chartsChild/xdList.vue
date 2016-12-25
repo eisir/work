@@ -20,12 +20,12 @@
       </div>
     </div>
     <div class="list">
-      <div class="item" v-for="item in items">
+      <div class="item" v-for="item in lists">
         <div class="number">
           <p>{{item.mobile}}</p>
         </div>
         <div class="area">
-          <p>{{item.belongProvince}}</p>
+          <p>{{item.apcrnames}}</p>
         </div>
         <div class="total">
           <p>{{item.applyamt}}</p>
@@ -40,7 +40,7 @@
 
 <script>
 
-import getData from '../../utils/getData';
+
 
   export default{
     data(){
@@ -49,61 +49,61 @@ import getData from '../../utils/getData';
         items:[
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           },
           {
             mobile:'188****7283',
-            belongProvince:'浙江',
+            apcrnames:'浙江',
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           }
@@ -113,20 +113,20 @@ import getData from '../../utils/getData';
     mounted(){
         let _this=this       
       
-        // let url="ws://localhost:8081/xd_1"
-        // getData(url,function(data){
-        //   _this.items=data
+        
+        // fetch('/static/data/xd_1/data_1.json').then(function(response) {
+        //   return response.json()
+        // }).then((json)=>{
+        //   _this.items=json
+        // }).catch(function(ex) {
+        //   console.log('parsing failed', ex)
         // })
-        // 
-        // 
-        fetch('/static/data/xd_1/data_1.json').then(function(response) {
-          return response.json()
-        }).then((json)=>{
-          _this.items=json
-        }).catch(function(ex) {
-          console.log('parsing failed', ex)
-        })
 
+    },
+    computed:{
+      lists(){
+        return this.$store.state.xdListData
+      }
     }
   }
 </script>
