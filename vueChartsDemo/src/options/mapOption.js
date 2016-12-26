@@ -22,7 +22,7 @@ option = {
         textStyle: {
             color: '#ff4623',
             fontWeight: 'normal',
-            fontSize:'18'
+            fontSize:'20'
         }
     },
     tooltip: {

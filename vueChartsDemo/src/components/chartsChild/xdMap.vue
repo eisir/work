@@ -14,9 +14,6 @@
 <script>
 import echarts from 'echarts/lib/echarts'
 import Setting from '../../options/mapOption.js'
-
-var myChart;
-
   export default{
     data(){
       return{
@@ -25,43 +22,27 @@ var myChart;
       }
     },
     mounted(){
-      myChart = echarts.init(document.getElementById(this.id));
+      var myChart = echarts.init(document.getElementById(this.id));
       var option=Setting._option
       myChart.setOption(option);
 
-      // fetch('/static/data/xd_2/data_1.json').then(function(response) {
-      //   return response.json()
-      // }).then((json)=>{
-      //   // console.log(json)
-      //   let _json = json.sort(function(a, b) {
-      //       return b.value - a.value;
-      //   })
+      fetch('/static/data/xd_2/data_1.json').then(function(response) {
+        return response.json()
+      }).then((json)=>{
+        // console.log(json)
+        let _json = json.sort(function(a, b) {
+            return b.value - a.value;
+        })
 
-      //   Setting._data=_json;
-      //   myChart.setOption(Setting.option());
-
-      //   this.items=_json.slice(0,10)
-
-
-      // }).catch(function(ex) {
-      //   console.log('parsing failed', ex)
-      // }) 
-      // 
-      // Setting._data=_json;
-      // myChart.setOption(Setting.option()); 
-      // this.items=_json.slice(0,10) 
-    },
-    computed:{
-      getData(){
-        return this.$store.state.xdMapData
-      }
-    },
-    watch:{
-      getData:function(val){
-        Setting._data=val;
+        Setting._data=_json;
         myChart.setOption(Setting.option());
-        this.items=val.slice(0,10);
-      }
+
+        this.items=_json.slice(0,10)
+
+
+      }).catch(function(ex) {
+        console.log('parsing failed', ex)
+      }) 
     }
   }
 </script>

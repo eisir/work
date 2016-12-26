@@ -40,6 +40,8 @@
 
 <script>
 
+
+
   export default{
     data(){
       return{
@@ -125,7 +127,7 @@
       lists(){
         return this.$store.state.xdListData
       }
-    },
+    }
   }
 </script>
 <style scoped>

@@ -1,8 +1,8 @@
 import getData from '../utils/getData';
 export default {
   state:{
-    TopData:[],
-    HeadData:[],
+    xdTopData:[],
+    xdHeadData:[],
     xdListData: [],
     xdMapData:[],
     xdDayData:[],
@@ -15,23 +15,20 @@ export default {
     bmTradeData:[]
   },
   mutations: {
-    changeTop(state,data){
-      console.log(data);
-      state.TopData=data
+    changeXdTop(state,data){
+      state.xdTopData=data
     },
-    changeHead(state,data){
-      state.HeadData=data
+    changeXdHead(state,data){
+      state.xdHeadData=data
     },
     changeXdList(state,data){
       state.xdListData=data
     },
     changeXdMap(state,data){
-      state.xdMapData=data.sort(function(a, b) {
-          return b.value - a.value;
-      });
+      state.xdMapData=data
     },
     changeXdDay(state,data){
-      state.xdDayData=data
+      state.xdMapData=data
     },
     changeXdTrade(state,data){
       state.xdTradeData=data
@@ -78,28 +75,19 @@ export default {
             commit('changeXdTrade',_data);
             break;
           case '005':
-            commit('changeHead',_data);
+            commit('changeXdHead',_data);
             break;
           case '006':
-            commit('changeTop',_data);
-            break;
-          case '007':
             commit('changeBmList',_data);
             break;
-          case '008':
+          case '007':
             commit('changeBmPie',_data);
             break;
-          case '009':
+          case '008':
             commit('changeBmTime',_data);
             break;
-          case '010':
+          case '009':
             commit('changeBmTrad',_data);
-            break;
-          case '011':
-            commit('changeHead',_data);
-            break;
-          case '012':
-            commit('changeTop',_data);
             break;
         }
 
