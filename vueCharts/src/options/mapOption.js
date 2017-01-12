@@ -6,23 +6,22 @@ import geoCoordMap from './geoData'
 var provs=echarts.getMap('china').geoJson.features
 let temp={};
 provs.forEach(n=>{
-        temp[n.properties.name]=n.properties.cp;      
+        temp[n.properties.name]=n.properties.cp;   
 })
 var geoData=temp
-// console.log(geoData);
 
 
 let option
 
 option = {
-    // backgroundColor: '#404a59',
     title: {
-        text: '各省市今日进件情况',
+        text: '各省市今日业务情况',
         left: 'center',
+        top:'2%',
         textStyle: {
             color: '#ff4623',
             fontWeight: 'normal',
-            fontSize:'18'
+            fontSize:'20'
         }
     },
     tooltip: {
@@ -36,31 +35,36 @@ option = {
             
         }
     },
-    legend: {
-        orient: 'vertical',
-        y: 'bottom',
-        x: 'right',
-        data: ['各省市今日进件情况'],
-        textStyle: {
-            color: '#fff'
-        }
-    },
+    
     visualMap: {
-        min: 0,
-        max: 2500,
-        left: 'left',
-        top: 'bottom',
-        itemHeight:100,
-        text: ['高','低'],           // 文本，默认为数值文本
+        type:'piecewise',
+        // splitNumber:5,
+        // min:0,
+        // max:1000,
+        pieces:  [
+                {min: 3000,label:'>3000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
+                {min: 1000, max: 3000,color:'#ff2900'},
+                {min: 200, max: 1000,color:'#fd9580'},
+                {min: 20, max: 200,color:'#fdcdc5'},
+                {max: 20,label:'<20',color:'#fdf1ef'}     // 不指定 min，表示 min 为无限大（-Infinity）。
+            ],
+        textStyle: {
+            color: '#000'
+        },
+        inverse:false,
+        left: '40',
+        bottom: '20',
+        itemHeight:20,
+        hoverLink:false,         // 文本，默认为数值文本
         calculable: true,
         seriesIndex:2,
-        // color:['#f00','#fafafa'] 
+        // color:['#fa6a4f','#fde7d9'] 
     },
     geo: {
         map: 'china',
-        left:'80',
-        top:'6%',
-        bottom: '0',
+        left:'150',
+        top:'12%',
+        bottom: '20',
         label: {
             emphasis: {
                 show: false
@@ -70,20 +74,28 @@ option = {
         itemStyle: {
             normal: {
                 areaColor: '#8baccb',
-                borderColor: '#d8ecf5'
-            },
-            emphasis: {
-                areaColor: '#75a1c6'
+                borderColor: '#e9e9e9',
+                shadowBlur: 1,
+                    shadowOffsetX: 3,
+                    shadowOffsetY: 5,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
             }
+            // emphasis: {
+            //     areaColor: '#c3c3c3',
+            //     shadowBlur: 1,
+            //         shadowOffsetX: 3,
+            //         shadowOffsetY: 5,
+            //         shadowColor: 'rgba(0, 0, 0, 0.5)'
+            // }
         }
     },
     series: [{
-        name: '各省市今日进件情况',
+        name: '各城市今日进件情况',
         type: 'scatter',
         coordinateSystem: 'geo',
         data: [],
         symbolSize: function(val) {
-            return 3+(val[2] / 1000);
+            return 4+(val[2] / 1000);
         },
         label: {
             normal: {
@@ -98,9 +110,10 @@ option = {
                 }
             }
         },
+        zlevel: 2,
         itemStyle: {
             normal: {
-                color: '#fe0000'
+                color: '#ffbc2d',
             }
         }
     }, {
@@ -109,7 +122,7 @@ option = {
         coordinateSystem: 'geo',
         data: [],
         symbolSize: function(val) {
-            return 20+(val[2] / 1000);
+            return 10+(val[2] / 1000);
         },
         showEffectOn: 'render',
         rippleEffect: {
@@ -120,27 +133,56 @@ option = {
             normal: {
                 formatter: '{b}',
                 position: 'right',
-                show: true
+                show: false
             }
         },
         itemStyle: {
             normal: {
-                color: '#fe0000',
-                shadowBlur: 10,
-                shadowColor: '#333'
+                color: '#ffbc2d',
             }
         },
-        zlevel: 2
+        zlevel: 3
     },
     {
-        name: '各省市今日进件情况',
+        name: '各省今日进件情况',
         type: 'map',
         mapType: 'china',
-        left:'80',
-        top:'6%',
-        bottom:'0',
+        left:'150',
+        top:'12%',
+        bottom:'20',
         data:[],
-        zlevel:1
+        zlevel:1,
+        itemStyle: {
+            normal:{
+                borderColor:'#fff'
+            },
+            emphasis: {
+                areaColor:'#ff994e'
+            }
+        },
+    },{
+        name: ' ',
+        type: 'effectScatter',
+        coordinateSystem: 'geo',
+        showEffectOn: 'render',
+        rippleEffect: {
+            brushType: 'stroke'
+        },
+        hoverAnimation: true,
+        label: {
+            normal: {
+                formatter: '{b}',
+                position: 'right',
+                show: false
+            }
+        },
+        itemStyle: {
+            normal: {
+                color: '#f00',
+            }
+        },
+        zlevel: 4,
+        data:[]
     }]
 };
 
@@ -157,30 +199,61 @@ function fmData(data){
     }
     return res
 }
+function fmCityData(data){
+    let res=[]
+    for(let i=0;i<data.length;i++){
+        let geoCoord = geoCoordMap[data[i].name]
+        if(geoCoord){
+            res.push({
+                name:data[i].name,
+                value: geoCoord.concat(data[i].value)
+            })
+        }
+    }
+    return res
+}
+
+function randomData() {
+    return Math.round(Math.random()*1000);
+}
+
 
 
 let Setting={
     index:0,
+    theme:0,
     _data:[],
-    _option:option,
+    _cityData:[],
+    _option:function(){
+        if(this.theme==1){
+            option.visualMap.textStyle.color="#fff";
+        }
+        return option
+    },
     option:function(){
-       let _data1=fmData(this._data)
-       let _data2=fmData(this._data.slice(0, 10))
-
         return {
-            visualMap:{
-                max:this._data[0].value
-            },
+            series:[
+            {
+            },{
+            },{
+               data:this._data
+            },{}
+            ]
+        };
+    },
+    cityOption:function(){
+        let _data1=fmCityData(this._cityData)
+        let _data2=fmCityData(this._cityData.slice(0, 10))
+        return {
             series:[
             {
                 data:_data1
             },{
                 data:_data2
-            },{
-                data:this._data
-            }
+            },{                
+            },{}
             ]
-        };
+        }
     }
 }
 

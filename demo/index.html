@@ -5,22 +5,229 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>demo</title>
 	<link rel="stylesheet" href="">
-	<script src="./node_modules/echarts/dist/echarts.min.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/echarts/dist/echarts.min.js"></script>
+	<script src="./js/echarts/map/js/china.js"></script>
 	<style>
-		#main{
-			width: 80%;
-			height: 800px;
+		html,body{
+			height: 100%;
 		}
+		.main{
+			width: 800px;
+			height: 400px;
+			margin: 0 auto;
+			display: block;
+		}
+		.box{
+			width: 600px;
+			margin: 0 auto;
+			background-color: #e5e5e5;
+			overflow: hidden;
+		}
+		.box .inner .item{
+			float: left;
+			padding-right: 20px;
+			box-sizing: border-box;
+		}
+		.box2{
+			width: 600px;
+			margin: 0 auto;
+			background-color: #e5e5e5;
+			overflow: hidden;
+		}
+		.box2 .inner .item{
+			float: left;
+			padding-right: 20px;
+			box-sizing: border-box;
+		}
+		.box2 .inner.animation{
+			animation: move 15s infinite linear;			
+		}
+		@keyframes move {
+			0%{
+				margin-left: 0;
+			}
+			100%{
+				margin-left: -800px;
+			}
+		}
+
+
+			.myCanvas {
+				border: 1px solid #ddd;
+				position: absolute;
+				top: 300px;
+				left: 100px;
+
+			}
+      .marq,
+			.num{
+				text-align: center
+			}
+      .marq{
+        width: 400px;
+        background-color: #f0f0f0;
+        margin: 0 auto;
+      }
 	</style>
 </head>
 <body>
-	<div id="main"></div>	
+<div class="marq">
+<marquee >测试内容1测试内容1测试内容2测试内容13测试内容1测试内容4</marquee></div>
+<div class="num">0</div>
+<div class="marq">
+  <marquee behavior="scroll" onmouseover="this.stop();" onmouseout="this.start();"> 
+这里是要滚动的内容 
+</marquee>
+</div>
+	<div class="box">
+		<div class="inner">
+			<div class="item">测试内容1</div>
+			<div class="item">测试内容2</div>
+			<div class="item">测试内容3</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容0</div>
+		</div>
+	</div><br>
+	<!-- <canvas id="demoCanvas" class="main"></canvas> -->
+	<div id="main" class="main"></div>	
+	<br>
+	<div class="box2">
+		<div class="inner">
+			<div class="item">测试内容1</div>
+			<div class="item">测试内容2</div>
+			<div class="item">测试内容3</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容</div>
+			<div class="item">测试内容0</div>
+		</div>
+	</div>
+	<canvas id="myCanvas" class="myCanvas" width="400" height="400">
+		</canvas>
+		<canvas id="myCanvas2" class="myCanvas" width="400" height="400">
+		</canvas>
 </body>
 <script>
 	var myChart = echarts.init(document.getElementById('main'));
+	var option;
 </script>
 <script src="./js/grid.js"></script>
-<script>	
-  myChart.setOption(option);
+<script src="./js/geo.js"></script>
+<script src="./js/getData.js"></script>
+<script>
+
+	var option=Setting._option;
+      myChart.setOption(option); 
+
+  // var url='ws://192.168.0.212:38081/bigdatacenter-bam-web/chart/loanWebSocketServer'
+  var url='ws://101.231.207.223:55081/bigdatacenter-bam-web/chart/loanWebSocketServer'
+	getData(url,function(data){
+
+
+        let _type=data.type
+        let _data=data.data
+        if(_type=='001'){
+        	Setting._data=_data.sort(function(a, b) {
+          return b.value - a.value;
+      		});
+                    let t=new Date().getTime()
+        	myChart.setOption(Setting.option());
+          console.log((new Date()).getTime()-t);
+        }
+        if(_type=='013'){
+        	Setting._cityData=_data;
+        	let option_=Setting.cityOption()
+        	
+        	myChart.setOption(option_);
+        	// console.log((new Date()).getTime()-t);
+        }
+  })	
+
+	function s(){
+	setTimeout(function(){
+ 	 	myChart.setOption({
+	 	 		series:[{
+	 	 			data:_data1()
+	 	 		},{
+	 	 			data:_data2()
+	 	 		},{
+	 	 			data:_data3()
+	 	 		}]
+	 	 	}); 
+ 	 		myChart.setOption({
+	 	 		series:[{
+	 	 			data:_data1()
+	 	 		},{
+	 	 			data:_data2()
+	 	 		},{
+	 	 			data:_data3()
+	 	 		}]
+	 	 	});
+	 	 	 myChart.setOption({
+	 	 		series:[{
+	 	 			data:_data1()
+	 	 		},{
+	 	 			data:_data2()
+	 	 		},{
+	 	 			data:_data3()
+	 	 		}]
+	 	 	});  	 		 	
+	 	 	s()
+		}, 100);
+	}
+
+	var i=0;
+	setInterval(function(){
+		$('.num').text(i)
+		i++
+	}, 10);
+	
+
+
+	$(function(){
+		var innerW=0;
+		$('.box .inner .item').each(function(index,n){
+			innerW += $(n).width()+20;
+		})
+		$('.box .inner').width(innerW);
+		function _move(){
+		$('.box').animate({
+			scrollLeft:$('.box .inner .item').eq(0).outerWidth()
+		},3000,'linear',function(){
+			$('.box').scrollLeft(0)
+			$('.box .inner .item').eq(0).appendTo('.box .inner');
+			_move()
+		})
+		}
+		_move()
+
+
+
+
+		var innerW=0;
+		$('.box2 .inner .item').each(function(index,n){
+			innerW += $(n).width()+20;
+		})
+		$('.box2 .inner').width(innerW);
+		$('.box2 .inner').addClass('animation')
+
+    setTimeout(function(){
+    alert(123)
+
+    }, 2000);
+	})
 </script>
 </html>

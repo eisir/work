@@ -45,7 +45,7 @@ fs.exists(pathname,function(exists){
 		}	
 		fs.readFile(pathname,function (err,data){
 		res.end(data);
-		console.log(data);
+		// console.log(data);
 		});
 		} else {
 		res.writeHead(404, {"Content-Type": "text/html"});
@@ -53,7 +53,7 @@ fs.exists(pathname,function(exists){
 		}
 	});
 
-}).listen(port, "127.0.0.1",()=>{
+}).listen(port,()=>{
 	let url = util.format('http://%s:%d', 'localhost', port)
 
     console.log('Listening at %s', url)

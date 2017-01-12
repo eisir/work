@@ -1,16 +1,16 @@
 import filter from '../utils/filter'
 
 let option = {
-    color: ['#fe0000', '#00f0ff', '#00ff01','#ff00ff'],
+    color: ['#4575c9', '#fb4d4e', '#ffbc2d','#279f33'],
 
     title: [{
-        text: '全天信贷业务交易情况',
+        text: '全天业务交易情况',
         left: 'center',
         top: '2%',
         textStyle: {
             color: '#ff4620',
             fontWeight:'normal',
-            fontSize:24
+            fontSize:20
         }
     }],
     tooltip: {
@@ -19,12 +19,12 @@ let option = {
     legend: {
         orient: 'vertical',
         bottom: '30%',
-        right:'0',
+        right:'20',
         textStyle: {
             color: '#3c3c3c',
             fontSize:16
         },
-        data: [ '进件量','放款笔数', '申请金额','放款金额']
+        data: [ '进件量','贷款笔数', '申请金额','贷款金额']
     },
     dataZoom:[{
         show:true,
@@ -35,8 +35,8 @@ let option = {
         bottom:10
     }],
     grid: {
-        left: '6%',
-        right: '15%',
+        left: '3%',
+        right: '144',
         top: '20%',
         bottom: '10%',
         containLabel: true
@@ -66,16 +66,15 @@ let option = {
         data: []
     },
     yAxis: [{
-        name:'笔\n数',
-        nameLocation:'middle',
-        nameGap:'60',
-        nameRotate:'0',
-        nameTextStyle:{
-          fontSize:20
-        },
+        name:'笔数',
+        // nameLocation:'middle',
         "axisLine": {
           show:false
         },
+        nameTextStyle:{
+            color:'#3c3c3c'
+        },
+        splitNumber:4,
         splitLine: {
             show: true,
             lineStyle: {
@@ -88,20 +87,25 @@ let option = {
         axisLabel: {
             textStyle: {
                 color: '#3c3c3c',
-                fontSize:20
+                fontSize:12
             }
         },
         type: 'value'
     },{
-        name:'放款金额',
+        name:'金额(元)',
+        nameTextStyle:{
+            color:'#3c3c3c'
+        },
         // max:800,
         // min:0,
         splitLine: {
             show: true,
             lineStyle: {
-                color: '#3c3c3c'
+                color: '#3c3c3c',         
+                type:'dashed'
             }
         },
+        splitNumber:4,
         "axisLine": {
           show:false
         },
@@ -111,7 +115,7 @@ let option = {
         axisLabel: {
             textStyle: {
                 color: '#3c3c3c',
-                fontSize:20
+                fontSize:12
             }
         },
     }],
@@ -119,12 +123,22 @@ let option = {
         name: '进件量',
         type: 'line',
         symbolSize: 6,
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
         symbol: 'circle',
         data: []
     },{
-        name: '放款笔数',
+        name: '贷款笔数',
         type: 'line',
         symbolSize: 6,
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
         symbol: 'circle',        
         data: []
     }, {
@@ -132,12 +146,22 @@ let option = {
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
         yAxisIndex: 1,
         data: []
     }, {
-        name: '放款金额',
+        name: '贷款金额',
         type: 'line',
         symbolSize: 6,
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
         symbol: 'circle',
         yAxisIndex: 1,
         data: []
@@ -158,25 +182,62 @@ function fmData(data){
 
 let Setting={
     index:0,
-    _data:[90, 120, 39  , 50, 120, 120,211],
-    options:function(){
-        if(this._data[0]){
-            option.series[0].data=fmData(this._data[0].data).seriesData;
+    theme:0,
+    _data:[],
+    _option:function(){
+        if(this.theme==1){
+            // option.visualMap.textStyle.color="#fff";
+            option.legend.textStyle.color="#fff";
+            option.xAxis.axisLine.lineStyle.color="#fff";
+            option.xAxis.axisLabel.textStyle.color="#fff";
+            option.yAxis.forEach(function(n){
+                n.splitLine.lineStyle.color="#fff";
+                n.axisLabel.textStyle.color="#fff";
+                n.nameTextStyle.color="#fff";
+            })
+            
+            option.xAxis.axisLabel.textStyle.color="#fff";
         }
-        if(this._data[2]){
-            option.series[1].data=fmData(this._data[2].data).seriesData;
+        return option
+    },
+    option:function(){
+        let _data1,_data2,_data3,_data4,_xData;
+        if(this._data[0]){
+            _data1=fmData(this._data[0].data).seriesData;
         }
         if(this._data[1]){
-            option.series[2].data=fmData(this._data[1].data).seriesData;
+            _data2=fmData(this._data[1].data).seriesData;
+        }
+        if(this._data[2]){
+            _data3=fmData(this._data[2].data).seriesData;
         }
         if(this._data[3]){
-            option.series[3].data=fmData(this._data[0].data).seriesData;
+            _data4=fmData(this._data[3].data).seriesData;
         }
         
 
-        option.xAxis.data=fmData(this._data[0].data).xData;
+        _xData=fmData(this._data[0].data).xData;
 
-        return option;
+
+        return {
+            xAxis:{
+                data:_xData
+            },
+            series:[
+                {
+                    data:_data1
+                },
+                {
+                    data:_data2
+                },
+                {
+                    data:_data3
+                },
+                {
+                    data:_data4
+                },
+            ]
+        };
     }
 }
 
