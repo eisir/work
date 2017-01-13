@@ -162,7 +162,7 @@ option = {
         },
     },{
         name: ' ',
-        type: 'effectScatter',
+        type: 'scatter',
         coordinateSystem: 'geo',
         showEffectOn: 'render',
         rippleEffect: {

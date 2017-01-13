@@ -1,6 +1,7 @@
 const WebSocketServer = require('ws').Server
 const wss = new WebSocketServer({port:8081})
 let fs = require('fs')
+let getData=require('./sendData/index')
 
 wss.on('connection',function(ws){
   let reqUrl=ws.upgradeReq.url

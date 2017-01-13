@@ -85,8 +85,6 @@ var myChart,oldNode;
             }
           }
         }
-        // console.log(oldData);
-        // console.log(arrData);
         var j=0;
         if(arrData.length>0){
           myChart.setOption({

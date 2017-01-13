@@ -103,7 +103,9 @@ var myChart,oldNode;
               });
           }, 500);       
         }
+        let t=(new Date()).getTime();
         myChart.setOption(Setting.cityOption());
+        // console.log((new Date()).getTime()-t);
         this.items=val.slice(0,10);
 
 

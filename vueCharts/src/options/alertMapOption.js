@@ -151,7 +151,6 @@ option = {
             }
         },
     },{
-        name: ' ',
         type: 'effectScatter',
         coordinateSystem: 'geo',
         showEffectOn: 'render',
@@ -171,7 +170,7 @@ option = {
                 color: '#f00',
             }
         },
-        zlevel: 4,
+        zlevel:4,
         data:[]
     }]
 };

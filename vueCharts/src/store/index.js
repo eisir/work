@@ -82,8 +82,8 @@ export default {
       // console.log(!_prd_url);
       if(!_prd_url){        
         // var url='ws://192.168.0.212:38081/bigdatacenter-bam-web/'+para
-        var url='ws://101.231.207.223:58083/bigdatacenter-bam-web/'+para
-        // var url='ws://101.231.207.223:55081/bigdatacenter-bam-web/'+para
+        // var url='ws://101.231.207.223:58083/bigdatacenter-bam-web/'+para
+        var url='ws://101.231.207.223:55081/bigdatacenter-bam-web/'+para
       }else{
         var url=_prd_url+para
       }
