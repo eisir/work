@@ -157,7 +157,7 @@ option = {
         rippleEffect: {
             brushType: 'stroke'
         },
-        hoverAnimation: true,
+        hoverAnimation: false,
         label: {
             normal: {
                 formatter: '{b}',
@@ -165,9 +165,13 @@ option = {
                 show: false
             }
         },
+        symbolSize: function(val) {
+                  // return 10+(val[2] / 1000)+Math.sin(j*2*Math.PI/360)*20;
+                  return 10+(val[2] / 1000);
+              },
         itemStyle: {
             normal: {
-                color: '#f00',
+                color: '#fe55fe',
             }
         },
         zlevel:4,
@@ -213,23 +217,28 @@ let Setting={
     theme:0,
     _data:[],
     _cityData:[],
+    _efData:[],
     _option:function(){
-        console.log(this.theme);
+        // console.log(this.theme);
         if(this.theme==1){
             option.visualMap.textStyle.color="#fff";
         }
         return option
     },
     option:function(){
-       
-       // console.log(this._data);
+        let _data1=fmCityData(this._cityData)
+        let _data2=fmCityData(this._cityData.slice(0, 10))
         return {
             series:[
             {
+                data:_data1
             },{
+                data:_data2
             },{
-                data:this._data
-            },{}
+               data:this._data
+            },{
+                data:this._efData
+            }
             ]
         };
     },

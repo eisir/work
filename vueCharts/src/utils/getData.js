@@ -11,7 +11,7 @@
           }
 
 
-          setInterval(sendMessage, 60000);
+          setInterval(sendMessage, 5000);
 
 
           function sendMessage() {

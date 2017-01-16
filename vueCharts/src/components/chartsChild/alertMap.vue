@@ -40,76 +40,126 @@ var myChart,oldNode;
     computed:{
       getData(){
         return this.$store.state.xdMapData
-      },
-      getCity(){
-        return this.$store.state.xdCityData
       }
+      // getCity(){
+      //   return this.$store.state.xdCityData
+      // }
     },
     watch:{
       getData:function(val){
-        this.loading=false;
-        Setting._data=val;
-        myChart.setOption(Setting.option());
-      },
-      getCity:function(val){
-        this.loading=false;
-        Setting._cityData=val;
-        
+        if(this.$store.state.alertMapOpen){          
+          if(val.pData){
+            Setting._data=val.pData;
+          }
+          if(val.cityData){
+            Setting._cityData=val.cityData;
+            this.items=val.cityData.slice(0,10);
+          }
+          let _oData=myChart.getOption().series[0].data        
+          if(val.cityData){
+            let effectData={}
+            let oldData={}
+            
+            _oData.forEach(function(n,index){
+              oldData[n.name]=n.value;
+            })
+            let tempO={}
+            val.cityData.forEach(function(n){
+              tempO[n.name]=n.value
+            })
+            var i=0,arrData=[]
 
-        let effectData={};
-        let oldData={};
-        let _oData=myChart.getOption().series[0].data;
-        _oData.forEach(function(n,index){
-          oldData[n.name]=n.value;
-        })
-        
-        let tempO={};
-        val.forEach(function(n){
-          tempO[n.name]=n.value
-        })
+            for(let k in oldData){
+              if(tempO[k]){
+                if(oldData[k][2]!=tempO[k]){
+                  effectData[k]=tempO[k];
 
+                  arrData[i]={};
+                  arrData[i].name=k;
+                  arrData[i].value=oldData[k];
+                  arrData[i].value[2]=tempO[k]
+                  i++;
 
-        var i=0,arrData=[];
-
-        for(let k in oldData){
-          if(tempO[k]){
-            if(oldData[k][2]!=tempO[k]){
-              effectData[k]=tempO[k];
-
-              arrData[i]={};
-              arrData[i].name=k;
-              arrData[i].value=oldData[k];
-              arrData[i].value[2]=tempO[k]
-              i++;
-
+                }
+              }
+            }
+            var j=0;
+            if(arrData.length>0){
+              Setting._efData=arrData
+              myChart.setOption(Setting.option());
+              setTimeout(function(){
+                 myChart.setOption({
+                    series:[{},{},{},{
+                      data:[]
+                    }]
+                  });
+              }, 600);       
+            }else{
+              myChart.setOption(Setting.option());
             }
           }
+          this.loading=false;
         }
-        var j=0;
-        if(arrData.length>0){
-          myChart.setOption({
-            series:[{},{},{},{
+      },
+      // getCity:function(val){
+      //   this.loading=false;
+      //   Setting._cityData=val;
+        
+
+      //   let effectData={};
+      //   let oldData={};
+      //   let _oData=myChart.getOption().series[0].data;
+      //   _oData.forEach(function(n,index){
+      //     oldData[n.name]=n.value;
+      //   })
+        
+      //   let tempO={};
+      //   val.forEach(function(n){
+      //     tempO[n.name]=n.value
+      //   })
+
+
+      //   var i=0,arrData=[];
+
+      //   for(let k in oldData){
+      //     if(tempO[k]){
+      //       if(oldData[k][2]!=tempO[k]){
+      //         effectData[k]=tempO[k];
+
+      //         arrData[i]={};
+      //         arrData[i].name=k;
+      //         arrData[i].value=oldData[k];
+      //         arrData[i].value[2]=tempO[k]
+      //         i++;
+
+      //       }
+      //     }
+      //   }
+      //   var j=0;
+      //   if(arrData.length>0){
+      //     myChart.setOption({
+      //       series:[{},{},{},{
               
-              data: arrData,
-              symbolSize: function(val) {
-                  // return 10+(val[2] / 1000)+Math.sin(j*2*Math.PI/360)*20;
-                  return 10+(val[2] / 1000);
-              }                
-            }]
-          });
-          setTimeout(function(){
-             myChart.setOption({
-                series:[{},{},{},{
-                  data:[]
-                }]
-              });
-          }, 500);
-        }
-        myChart.setOption(Setting.cityOption());
-        this.items=val.slice(0,10);
+      //         data: arrData,
+      //         symbolSize: function(val) {
+      //             // return 10+(val[2] / 1000)+Math.sin(j*2*Math.PI/360)*20;
+      //             return 10+(val[2] / 1000);
+      //         }                
+      //       }]
+      //     });
+      //     setTimeout(function(){
+      //        myChart.setOption({
+      //           series:[{},{},{},{
+      //             data:[]
+      //           }]
+      //         });
+      //     }, 500);
+      //   }
+      //   myChart.setOption(Setting.cityOption());
+      //   this.items=val.slice(0,10);
 
 
-      }
+      // }
     }
   }
 </script>

@@ -41,9 +41,7 @@ var myChart
         this.loading=false;
         // console.log(val);
         Setting._data=val;
-        let t=(new Date()).getTime();
         myChart.setOption(Setting.option());
-        console.log((new Date()).getTime()-t);
       }
     }
   }

@@ -6,7 +6,7 @@ export default {
     TopData:[],
     HeadData:[],
     xdListData: [],
-    xdMapData:[],
+    xdMapData:{},
     xdDayData:[],
     xdTradeData:[],
     bmTopData:[],
@@ -15,9 +15,13 @@ export default {
     bmPieData:[],
     bmTimeData:[],
     bmTradeData:[],
-    xdCityData:[]
+    xdCityData:[],
+    alertMapOpen:false
   },
   mutations: {
+    changeAlertMap(state,para){
+      state.alertMapOpen=para
+    },
     changeTheme(state){
       if(state.theme==0){
         state.theme=1
@@ -35,9 +39,10 @@ export default {
       state.xdListData=data
     },
     changeXdMap(state,data){      
-      state.xdMapData=data.sort(function(a, b) {
-          return b.value - a.value;
-      });
+      // data.cityData=data.cityData.sort(function(a, b) {
+      //     return b.value - a.value;
+      // });
+      state.xdMapData=data
     },
     changeMapCity(state,data){
       
@@ -82,21 +87,38 @@ export default {
       // console.log(!_prd_url);
       if(!_prd_url){        
         // var url='ws://192.168.0.212:38081/bigdatacenter-bam-web/'+para
-        // var url='ws://101.231.207.223:58083/bigdatacenter-bam-web/'+para
-        var url='ws://101.231.207.223:55081/bigdatacenter-bam-web/'+para
+        var url='ws://101.231.207.223:58083/bigdatacenter-bam-web/'+para
+        // var url='ws://101.231.207.223:55081/bigdatacenter-bam-web/'+para
       }else{
         var url=_prd_url+para
       }
       
       // let url='ws://10.1.22.80:55081/bigdatacenter-bam-web/'+para
      
-      getDatas(url,function(data){
-        let _type=data.type
-        let _data=data.data
+      getDatas(url,function(data){        
+        let tmpData = {}
+        data.forEach(function(n,index){
+          let _type = n.type;
+          let _data = n.data;
+          if(_type=='001'){
+            tmpData.pData=_data
+          }else if(_type=='013'){
+            tmpData.cityData=_data
+          }else{
+            change(_type,_data);
+          }
+        });
+        if(tmpData.pData||tmpData.cityData){
+          commit('changeXdMap',tmpData);
+        }
+
+      })
+
+      function change(_type,_data){
         switch(_type){
-          case '001':
-            commit('changeXdMap',_data);
-            break;
+          // case '001':
+          //   commit('changeXdMap',_data);
+          //   break;
           case '002':
             commit('changeXdList',_data);
             break;
@@ -130,12 +152,11 @@ export default {
           case '012':
             commit('changeTop',_data);
             break;
-          case '013':
-            commit('changeMapCity',_data);
-            break;
+          // case '013':
+          //   commit('changeMapCity',_data);
+          //   break;
         }
-
-      })
+      }
     }
   }
 }

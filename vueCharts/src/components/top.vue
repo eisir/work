@@ -1,12 +1,10 @@
 <template>
   <div class="top_tips">
-  <!-- <marquee id="marq"> -->
     <div class="inner" id="inner">
       <span class="text" v-for="item in oitems">
         {{item.text}}：<span>{{item.val}} {{item.unit}}</span>
       </span>
     </div>
-    <!-- </marquee>     -->
   </div>
 </template>
 <script>
@@ -74,7 +72,6 @@ import $ from 'jquery'
       let InnerW=0;
         $('.top_tips .inner .text').each(function(index,n){
             InnerW+=$(n).width()
-
         });
         $('.top_tips .inner').width(InnerW);
       function _move(){ 
