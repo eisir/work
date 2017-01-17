@@ -1,14 +1,15 @@
+import filter from '../utils/filter'
 let option = {
-    color: ['#fe0000', '#00f0ff', '#00ff01'],
+    color: ['#4575c9', '#fb4d4e', '#ffbc2d','#279f33'],
 
     title: [{
-        text: '近15天信贷交易情况',
+        text: '近15天业务交易情况',
         left: 'center',
         top: '2%',
         textStyle: {
             color: '#ff4620',
             fontWeight:'normal',
-            fontSize:24
+            fontSize:20
         }
     }],
     tooltip: {
@@ -17,16 +18,16 @@ let option = {
     legend: {
         orient: 'vertical',
         bottom: '30%',
-        right:'0',
+        right:'20',
         textStyle: {
             color: '#3c3c3c',
             fontSize:16
         },
-        data: [ '进件量','放款笔数', '申请金额','放款金额']
+        data: [ '进件量','贷款笔数', '申请金额','贷款金额']
     },
     grid: {
-        left: '6%',
-        right: '15%',
+        left: '3%',
+        right: '144',
         top: '20%',
         bottom: '10%',
         containLabel: true
@@ -41,32 +42,37 @@ let option = {
         type: 'category',
         "axisLine": {
             lineStyle: {
-                color: '#3c3c3c'
+                color: '#3c3c3c',
             }
         },
         "axisTick": {
             "show": false
         },
         axisLabel: {
+            rotate:60,
+            interval:0,
             textStyle: {
                 color: '#3c3c3c',
-                fontSize:10
+                fontSize:12
             }
         },
-        data: ['9-1', '9-2', '9-3', '9-4', '9-5', '9-6', '9-7', '9-8', '9-9', '9-10', '9-11', '9-12', '9-13', '9-14', '9-15']
+        data: []
     },
-    yAxis: {
-        name:'笔\n数',
-        nameLocation:'middle',
-        nameGap:'60',
-        nameRotate:'0',
+    yAxis: [{
+        name:'笔数',
         nameTextStyle:{
-          fontSize:20
+            color:'#3c3c3c'
         },
+        // nameLocation:'middle',
+        // nameGap:'60',
+        // nameRotate:'0',
+        // nameTextStyle:{
+        //   fontSize:20
+        // },
         "axisLine": {
           show:false
         },
-        splitNumber:3,
+        splitNumber:4,
         splitLine: {
             show: true,
             lineStyle: {
@@ -79,37 +85,158 @@ let option = {
         axisLabel: {
             textStyle: {
                 color: '#3c3c3c',
-                fontSize:20
+                fontSize:12
             }
         },
         type: 'value'
-    },
+    },{
+        name:'金额(元)',
+        nameTextStyle:{
+            color:'#3c3c3c'
+        },
+        // max:800,
+        // min:0,
+        splitLine: {
+            show: true,
+            lineStyle: {
+                color: '#3c3c3c',         
+                type:'dashed'
+            }
+        },
+        splitNumber:4,
+        "axisLine": {
+          show:false
+        },
+        "axisTick": {
+            "show": false
+        },
+        axisLabel: {
+            textStyle: {
+                color: '#3c3c3c',
+                fontSize:12
+            }
+        },
+    }],
     series: [{
         name: '进件量',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
-        data: [90, 50, 39, 50, 120, 120,811, 50, 39, 50, 120, 120,811, 50, 39]
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
+        data: []
     },
     {
-        name: '放款笔数',
+        name: '贷款笔数',
         type: 'line',
         symbolSize: 6,
-        symbol: 'circle',        
-        data: [30,38,70, 162, 50, 87, 10, 147,160, 162, 50, 87, 90, 147,160]
+        symbol: 'circle',  
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },      
+        data: []
     },{
         name: '申请金额',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
-        data: [70, 162, 50, 87, 90, 147,160, 162, 50, 87, 90, 147,160, 147,160]
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
+        yAxisIndex: 1,
+        data: []
     },{
-        name: '放款金额',
+        name: '贷款金额',
         type: 'line',
         symbolSize: 6,
         symbol: 'circle',
-        data: [100,108,90, 50, 39, 50, 120, 120,811, 50, 39, 50, 120, 120,811]
+        lineStyle:{
+            normal:{
+                width:1
+            }
+        },
+        yAxisIndex: 1,
+        data: []
     }]
 }
 
-module.exports=option;
+
+function fmData(data){
+    var res={xData:[],seriesData:[]}
+
+    for(let i=0;i<data.length;i++){
+        res.seriesData.push(data[i].yAxis)
+        res.xData.push(filter.getDate(data[i].xAxis))
+    }
+    return res
+}
+
+let Setting={
+    index:0,
+    theme:0,
+    _data:[90, 120, 39  , 50, 120, 120,211],
+    _option:function(){
+        if(this.theme==1){
+            // option.visualMap.textStyle.color="#fff";
+            option.legend.textStyle.color="#fff";
+            option.xAxis.axisLine.lineStyle.color="#fff";
+            option.xAxis.axisLabel.textStyle.color="#fff";
+            option.yAxis.forEach(function(n){
+                n.splitLine.lineStyle.color="#fff";
+                n.axisLabel.textStyle.color="#fff";
+                n.nameTextStyle.color="#fff";
+            })
+            
+            option.xAxis.axisLabel.textStyle.color="#fff";
+        }
+        return option
+    },
+    option:function(){
+        let _data1,_data2,_data3,_data4,_xData;
+        if(this._data[0]){
+            _data1=fmData(this._data[0].data).seriesData;
+        }
+        if(this._data[1]){
+            _data2=fmData(this._data[1].data).seriesData;
+        }
+        if(this._data[2]){
+            _data3=fmData(this._data[2].data).seriesData;
+        }
+        if(this._data[3]){
+            _data4=fmData(this._data[3].data).seriesData;
+        }
+        
+
+        _xData=fmData(this._data[0].data).xData;
+
+
+        return {
+            xAxis:{
+                data:_xData
+            },
+            series:[
+                {
+                    data:_data1
+                },
+                {
+                    data:_data2
+                },
+                {
+                    data:_data3
+                },
+                {
+                    data:_data4
+                },
+            ]
+        };
+    }
+}
+
+module.exports=Setting;

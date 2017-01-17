@@ -6,16 +6,16 @@
     <div class="legend">
       <div class="item">
         <div class="number">
-         <p>手机号</p>
+         <p>交易手机号码</p>
         </div>
         <div class="area">
-         <p>订单号</p>
+         <p>交易名称</p>
         </div>
         <div class="total">
-         <p>申请金额</p>
+         <p>交易金额(元)</p>
         </div>
         <div class="time">
-         <p>申请时间</p>
+         <p>交易时间</p>
         </div>
       </div>
     </div>
@@ -25,15 +25,19 @@
           <p>{{item.mobile}}</p>
         </div>
         <div class="area">
-          <p>{{item.custId}}</p>
+          <p>{{item.srcbuSid}}</p>
         </div>
         <div class="total">
-          <p>{{item.retCode}}</p>
+          <p>{{item.amount}}</p>
         </div>
         <div class="time">
-          <p>{{item.receiveTime|getLastTimeStr}}</p>
+          <p>{{item.collectTime|getLastMinTimeStr}}</p>
         </div>
       </div>
+    </div>
+    <div class="loading" v-show='loading'>
+     <div class="bg"></div>
+     <div class="text">loading...</div>
     </div>
   </div>
 </template>
@@ -42,26 +46,40 @@
   export default{
     data(){
       return{
+        loading:true,
         id:'main_'+Math.round((new Date()).getTime()*Math.random()),
         items:[]
       }
     },
     mounted(){
-      fetch('/static/data/bm_1/data_1.json').then(function(response) {
-        return response.json()
-      }).then((json)=>{
-        this.items=json
-      }).catch(function(ex) {
-        console.log('parsing failed', ex)
-      })
+      // fetch('/static/data/bm_1/data_1.json').then(function(response) {
+      //   return response.json()
+      // }).then((json)=>{
+      //   this.items=json
+      // }).catch(function(ex) {
+      //   console.log('parsing failed', ex)
+      // }) 
+    },
+    computed:{
+      lists(){
+        return this.$store.state.bmListData
+      }
+    },
+    watch:{
+      lists(val){
+        this.loading=false;
+        // console.log(val);
+        this.items=val
+      }
     }
   }
 </script>
 <style scoped>
   .title{
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     color:#ff4620;
-    font-size: 24px;
+    font-size: 20px;
   }
   .item{
     display: flex;

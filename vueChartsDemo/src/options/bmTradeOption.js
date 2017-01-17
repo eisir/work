@@ -9,7 +9,7 @@ let option = {
         textStyle: {
             color: '#ff4620',
             fontWeight:'normal',
-            fontSize:24
+            fontSize:20
         }
     }],
     tooltip: {
@@ -54,12 +54,10 @@ let option = {
         data: ['15:40', '15:45', '15:50', '15:55', '16:00', '16:05', '16:10','16:15']
     },
     yAxis: {
-        name:'秒\n数',
-        nameLocation:'middle',
-        nameGap:'60',
+        name:'秒数',
         nameRotate:'0',
         nameTextStyle:{
-          fontSize:20
+          fontSize:12
         },
         "axisLine": {
           show:false
@@ -102,11 +100,19 @@ function fmData(data){
 
 let Setting={
     index:0,
-    _data:[90, 120, 39  , 50, 120, 120,211],
+    _data:[],
+    _option:option,
     options:function(){
-        option.series[0].data=fmData(this._data).seriesData.splice(this.index,8);
-        option.xAxis.data=fmData(this._data).xData.splice(this.index,8);
-        return option;
+        let _data=fmData(this._data).seriesData;
+        let _Xdata=fmData(this._data).xData;
+        return {
+            xAxis:{
+                data:_Xdata
+            },
+            series:[{
+                data:_data
+            }]
+        }
     }
 }
 

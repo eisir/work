@@ -2,13 +2,13 @@ import filter from '../utils/filter'
 let option
 option = {
     title: {
-        text: '便民实时交易',
+        text: '便民全天交易量',
         left: 'center',
         top: '2%',
         textStyle: {
             color: '#ff4620',
             fontWeight:'normal',
-            fontSize:24
+            fontSize:20
         }
     },
     tooltip : {
@@ -17,7 +17,7 @@ option = {
     grid: {
         left: '3%',
         right: '4%',
-        bottom: '3%',
+        bottom: '8%',
         containLabel: true
     },
     xAxis : {
@@ -26,15 +26,16 @@ option = {
                 "show": false
             },
             boundaryGap : true,
-            data : ['周一','周二','周三','周四','周五','周六','周日']
+            data : []
     },
     yAxis : {
+        name: '笔数',
         type : 'value',
         "axisTick": {
             "show": false
         },
-        boundaryGap : false,
-        splitNumber:3,
+        // boundaryGap : ['10%','10%'],
+        splitNumber:4,
         splitLine: {
             show: true,
             lineStyle: {
@@ -47,7 +48,7 @@ option = {
     },
     series : [
         {
-            name:'邮件营销',
+            name:'便民全天交易量',
             type:'line',
             stack: '总量',
             areaStyle: {normal: {}},
@@ -67,11 +68,19 @@ function fmData(data){
 
 let Setting={
     index:0,
-    _data:[90, 120, 39  , 50, 120, 120,211],
+    _data:[],
+    _option:option,
     options:function(){
-        option.series[0].data=fmData(this._data).seriesData.splice(this.index,10);
-        option.xAxis.data=fmData(this._data).xData.splice(this.index,10);
-        return option;
+        let _data=fmData(this._data).seriesData;
+        let _Xdata=fmData(this._data).xData;
+        return {
+            xAxis:{
+                data: _Xdata
+            },
+            series:[{
+                data:_data
+            }]
+        }
     }
 }
 

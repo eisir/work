@@ -55,8 +55,7 @@ option = {
         left: '40',
         bottom: '20',
         itemHeight:20,
-        hoverLink:false,         // 文本，默认为数值文本
-        calculable: true,
+        hoverLink:false,   
         seriesIndex:2,
         // color:['#fa6a4f','#fde7d9'] 
     },
@@ -67,9 +66,10 @@ option = {
         bottom: '20',
         label: {
             emphasis: {
-                show: false
+                show: true
             }
         },
+        silent:false,
         roam: false,
         itemStyle: {
             normal: {
@@ -128,7 +128,7 @@ option = {
         rippleEffect: {
             brushType: 'stroke'
         },
-        hoverAnimation: true,
+        hoverAnimation: false,
         label: {
             normal: {
                 formatter: '{b}',
@@ -152,6 +152,9 @@ option = {
         bottom:'20',
         data:[],
         zlevel:1,
+        roam:false,
+        silent:false,
+        geoIndex:0,
         itemStyle: {
             normal:{
                 borderColor:'#fff'
@@ -159,7 +162,7 @@ option = {
             emphasis: {
                 areaColor:'#ff994e'
             }
-        },
+        }
     },{
         name: ' ',
         type: 'scatter',

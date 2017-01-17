@@ -83,7 +83,7 @@ import $ from 'jquery'
             _move();
           });
       }
-      _move();
+      // _move();
     },
     computed:{
       oitems:function(){
@@ -126,5 +126,13 @@ import $ from 'jquery'
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.inner{
+  animation: move 40s infinite linear;
+}
+@keyframes move {      
+  100%{
+    transform: translate(-90rem);
+  }
+}
 </style>

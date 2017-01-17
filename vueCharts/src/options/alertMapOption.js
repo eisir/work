@@ -142,6 +142,7 @@ option = {
         bottom:'10',
         data:[],
         zlevel:1,
+        roam:false,
         itemStyle: {
             normal:{
                 borderColor:'#ebebeb'
@@ -150,6 +151,13 @@ option = {
                 areaColor:'#ff994e'
             }
         },
+        label:{
+            normal: {
+                formatter: '{b}',
+                position: 'center',
+                show: true
+            }
+        }
     },{
         type: 'effectScatter',
         coordinateSystem: 'geo',

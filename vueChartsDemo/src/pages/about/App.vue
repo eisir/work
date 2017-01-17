@@ -16,6 +16,6 @@ export default {
 }
 </script>
 
-<style>
-@import '../../assets/base.css'
+<style lang="scss">
+@import '../../assets/scss/base.scss';
 </style>

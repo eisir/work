@@ -41,14 +41,12 @@
 			box-sizing: border-box;
 		}
 		.box2 .inner.animation{
-			animation: move 15s infinite linear;			
+			animation: move 4s infinite linear;			
 		}
 		@keyframes move {
-			0%{
-				margin-left: 0;
-			}
+			
 			100%{
-				margin-left: -800px;
+				transform: translate(-20rem);
 			}
 		}
 
@@ -73,7 +71,7 @@
 </head>
 <body>
 <div class="marq">
-<marquee >测试内容1测试内容1测试内容2测试内容13测试内容1测试内容4</marquee></div>
+<marquee id="maq">测试内容1测试内容1测试内容2测试内容13测试内容1测试内容4</marquee></div>
 <div class="num">0</div>
 <div class="marq">
   <marquee behavior="scroll" onmouseover="this.stop();" onmouseout="this.start();"> 
@@ -145,7 +143,7 @@
       		});
                     let t=new Date().getTime()
         	myChart.setOption(Setting.option());
-          console.log((new Date()).getTime()-t);
+          // console.log((new Date()).getTime()-t);
         }
         if(_type=='013'){
         	Setting._cityData=_data;

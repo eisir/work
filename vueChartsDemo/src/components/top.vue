@@ -1,10 +1,12 @@
 <template>
   <div class="top_tips">
-    <div class="inner">
+  <!-- <marquee id="marq"> -->
+    <div class="inner" id="inner">
       <span class="text" v-for="item in oitems">
-        {{item.text}}：{{item.val}}
+        {{item.text}}：<span>{{item.val}} {{item.unit}}</span>
       </span>
     </div>
+    <!-- </marquee>     -->
   </div>
 </template>
 <script>
@@ -13,71 +15,114 @@ import $ from 'jquery'
     data(){
       return {
         items:[
-          {
-            text:'APP用户数',
-            val:8809
-          },
-          {
-            text:'新增APP用户数',
-            val:8809
-          },
+          // {
+          //   text:'APP用户数',
+          //   val:0,
+          //   unit:''
+          // },
+          // {
+          //   text:'新增APP用户数',
+          //   val:0,
+          //   unit:''
+          // },
           {
             text:'信贷进件量',
-            val:8809
+            val:0,
+            unit:''
           },
           {
             text:'信贷贷款金额',
-            val:8809
+            val:0,
+            unit:'元'
           },
           {
             text:'理财-活期笔数',
-            val:8810
+            val:0,
+            unit:''
           },
           {
             text:'理财-活期金额',
-            val:8809
+            val:0,
+            unit:'元'
           },
           {
             text:'理财-定期笔数',
-            val:8809
+            val:0,
+            unit:''
           },
           {
             text:'理财-定期金额',
-            val:8809
-          },
-          {
-            text:'便民交易笔数',
-            val:8809
-          },
-          {
-            text:'便民交易总金额',
-            val:8809
+            val:0,
+            unit:'元'
           }
+          // {
+          //   text:'便民交易笔数',
+          //   val:0,
+          //   unit:''
+          // },
+          // {
+          //   text:'便民交易总金额',
+          //   val:0,
+          //   unit:'元'
+          // }
         ]
       }
     },
     mounted(){
-      $('.top_tips .inner').append($('.top_tips .inner').html());
+      let _this=this
+      // $('.top_tips .inner').append($('.top_tips .inner').html());
       let InnerW=0;
-      $('.top_tips .inner .text').each(function(index,n){
-          InnerW+=$(n).width()+40
+        $('.top_tips .inner .text').each(function(index,n){
+            InnerW+=$(n).width()
 
-      });
-      $('.top_tips .inner').width(InnerW)
-      function _move(){
-        $('.top_tips').animate({
-          scrollLeft: InnerW/2
-        },InnerW*5,"linear",function(){
-          $('.top_tips').scrollLeft(0);
-          _move()
-        })
+        });
+        $('.top_tips .inner').width(InnerW);
+      function _move(){ 
+          $('.top_tips .inner').stop().animate({
+            marginLeft: -$('.top_tips .inner .text').eq(0).width()
+          },6000,"linear",function(){
+            $('.top_tips .inner').css('margin-left',0);
+            $('.top_tips .inner .text:first-child').appendTo($('.top_tips .inner'));
+            _move();
+          });
       }
       _move();
     },
     computed:{
       oitems:function(){
-        let res=this.items
-        return res.concat(res)
+          // return this.items.filter(function(n){
+          //   return n.val!=0
+          // })
+
+          return this.items.concat(this.items)
+      },
+      getData:function(){
+        return this.$store.state.TopData
+      }
+    },
+    watch:{
+      getData(vals){
+        // this.items[0].val=vals.lmps_002
+        // this.items[1].val=vals.lmps_001
+        // this.items[2].val=vals.loan_001
+        // this.items[3].val=vals.loan_004
+        // this.items[4].val=vals.lfp_003
+        // this.items[5].val=vals.lfp_004
+        // this.items[6].val=vals.lfp_001
+        // this.items[7].val=vals.lfp_002
+        // this.items[8].val=vals.lmps_003
+        // this.items[9].val=vals.lmps_004
+
+        // this.items[0].val=vals.lmps_002
+        // this.items[1].val=vals.lmps_001
+        this.items[0].val=vals.loan_001
+        this.items[1].val=vals.loan_004
+        this.items[2].val=vals.lfp_003
+        this.items[3].val=vals.lfp_004
+        this.items[4].val=vals.lfp_001
+        this.items[5].val=vals.lfp_002
+        // this.items[8].val=vals.lmps_003
+        // this.items[9].val=vals.lmps_004
       }
     }
     
@@ -85,25 +130,4 @@ import $ from 'jquery'
 </script>
 
 <style scoped>
-  .top_tips{
-    position: absolute;
-    left: 10%;
-    width: 80%;
-    top: 2.4%;
-    margin-top: -1rem;
-    line-height: 2rem;
-    height: 2rem;
-    color:#f4e925;
-    font-size: 1rem;
-    overflow: hidden;
-  }
-  .top_tips .text{
-    margin-right: 40px;
-    box-sizing: border-box;
-    display: inline-block;
-  }
-  .top_tips .inner{
-    text-align: left;
-
-  }
 </style>

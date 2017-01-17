@@ -6,22 +6,23 @@ let option = {
         textStyle:{
             color:'#ff4620',
             fontWeight:'normal',
-            fontSize:24
+            fontSize:20
         }
     },
     label: {
         normal: {
             formatter: "{b} {c}({d}%)",
-            position: "insideTopRight"
+            // position: "insideTopRight"
         }
     },
     tooltip: {
         trigger: 'item',
-        formatter: "{a} <br/>{b}: {c} ({d}%)"
+        formatter: "{a} <br/>{b}: {c} ({d}%)",
+        // extraCssText:'text-align:left'
     },
     series: [
         {
-            name:'访问来源',
+            name:'便民交易(笔数)',
             type:'pie',
             radius: ['30%', '50%'],            
             labelLine: {
@@ -33,25 +34,15 @@ let option = {
 };
 
 let Setting={
-    _data:[{
-                "name":"信用卡还款无卡还款",
-                "value":59.0
-            },{
-                "name":"信用卡还款线下pos",
-                "value":470.0
-            },{
-                "name":"信用卡还款瘦终端",
-                "value":929.0
-            },{
-                "name":"转账汇款",
-                "value":332.0
-            },{
-                "name":"信用卡还款胖终端",
-                "value":654.0
-            }],
+    _data:[],
+    _option:option,
     options:function(){
-        option.series[0].data=this._data;
-        return option;
+        let _data=this._data;
+        return {
+            series:[{
+                data:_data
+            }]
+        }
     }
 }
 

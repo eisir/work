@@ -1,7 +1,8 @@
 const WebSocketServer = require('ws').Server
 const wss = new WebSocketServer({port:8081})
 let fs = require('fs')
-let getData=require('./sendData/index')
+// let getData=require('./sendData/index')
+import getData from './sendData/index'
 
 wss.on('connection',function(ws){
   let reqUrl=ws.upgradeReq.url
@@ -14,15 +15,17 @@ wss.on('connection',function(ws){
     console.log(message)
     msg=message;
   })
-
+  console.log(getData.cityData);
   var i=0;
   var t=setInterval(function(){
-    let readUrl='./static'+reqUrl+'/data_'+Math.ceil(Math.random()*4)+'.json'
-    fs.readFile(readUrl,"utf-8",function(err,data){
-      ws.send(data)
-      // ws.send(i+'-----')
-      i++
-    })
+    // let readUrl='./static'+reqUrl+'/data_'+Math.ceil(Math.random()*4)+'.json'
+    // fs.readFile(readUrl,"utf-8",function(err,data){
+    //   ws.send(data)
+    //   // ws.send(i+'-----')
+    //   i++
+    // })
+    // ws.send(getData)
+    ws.send(i+'-----')
   }, 2000)
   
 

@@ -36,10 +36,11 @@ var myChart
     },
     watch:{
       getData:function(val){
-        this.loading=false;
-        Setting._data=val;
-        myChart.setOption(Setting.option());
-        this.items=val.slice(0,10);
+        if(!this.$store.state.alertMapOpen){          
+          Setting._data=val;
+          myChart.setOption(Setting.option());
+          this.loading=false;
+        }
       }
     }
   }

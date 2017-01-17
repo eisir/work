@@ -1,8 +1,10 @@
-import getData from '../utils/getData';
+import getDatas from '../utils/getData';
 export default {
   state:{
-    xdTopData:[],
-    xdHeadData:[],
+    theme:0,
+    themeClass:['','theme_kj'],
+    TopData:[],
+    HeadData:[],
     xdListData: [],
     xdMapData:[],
     xdDayData:[],
@@ -12,23 +14,37 @@ export default {
     bmListData:[],
     bmPieData:[],
     bmTimeData:[],
-    bmTradeData:[]
+    bmTradeData:[],
+    xdCityData:[]
   },
   mutations: {
-    changeXdTop(state,data){
-      state.xdTopData=data
+    changeTheme(state){
+      if(state.theme==0){
+        state.theme=1
+      }else{
+        state.theme=0
+      }
     },
-    changeXdHead(state,data){
-      state.xdHeadData=data
+    changeTop(state,data){   
+      state.TopData=data
+    },
+    changeHead(state,data){
+      state.HeadData=data
     },
     changeXdList(state,data){
       state.xdListData=data
     },
-    changeXdMap(state,data){
-      state.xdMapData=data
+    changeXdMap(state,data){      
+      state.xdMapData=data.sort(function(a, b) {
+          return b.value - a.value;
+      });
+    },
+    changeMapCity(state,data){
+      
+      state.xdCityData=data
     },
     changeXdDay(state,data){
-      state.xdMapData=data
+      state.xdDayData=data
     },
     changeXdTrade(state,data){
       state.xdTradeData=data
@@ -37,30 +53,46 @@ export default {
       state.bmTopData=data
     },
     changeBmHead(state,data){
+
       state.bmHeadData=data
     },
     changeBmList(state,data){
       state.bmListData=data
     },
     changeBmPie(state,data){
+
       state.bmPieData=data
     },
     changeBmTime(state,data){
+
       state.bmTimeData=data
     },
-    changeBmTrad(state,data){
+    changeBmTrade(state,data){
+      
       state.bmTradeData=data
     }
   },
   actions: {
+    getTheme({commit}){
+      commit('changeXdMap');
+    },
     getData({commit},params){
-      let para='chart/loanWebSocketServer'
-      let url='ws://192.168.0.212:38081/bigdatacenter-bam-web/'+para
-
-      getData(url,function(data){   
+      let para=params.xd?'chart/loanWebSocketServer':'chart/lmpsWebSocketServer'
+      
+      // console.log(!_prd_url);
+      if(!_prd_url){        
+        // var url='ws://192.168.0.212:38081/bigdatacenter-bam-web/'+para
+        var url='ws://101.231.207.223:58083/bigdatacenter-bam-web/'+para
+        // var url='ws://101.231.207.223:55081/bigdatacenter-bam-web/'+para
+      }else{
+        var url=_prd_url+para
+      }
+      
+      // let url='ws://10.1.22.80:55081/bigdatacenter-bam-web/'+para
+     
+      getDatas(url,function(data){
         let _type=data.type
         let _data=data.data
-
         switch(_type){
           case '001':
             commit('changeXdMap',_data);
@@ -75,19 +107,31 @@ export default {
             commit('changeXdTrade',_data);
             break;
           case '005':
-            commit('changeXdHead',_data);
+            commit('changeHead',_data);
             break;
           case '006':
-            commit('changeBmList',_data);
+            commit('changeTop',_data);
             break;
           case '007':
-            commit('changeBmPie',_data);
+            commit('changeBmList',_data);
             break;
           case '008':
-            commit('changeBmTime',_data);
+            commit('changeBmPie',_data);
             break;
           case '009':
-            commit('changeBmTrad',_data);
+            commit('changeBmTrade',_data);
+            break;
+          case '010':
+            commit('changeBmTime',_data);
+            break;
+          case '011':
+            commit('changeHead',_data);
+            break;
+          case '012':
+            commit('changeTop',_data);
+            break;
+          case '013':
+            commit('changeMapCity',_data);
             break;
         }
 

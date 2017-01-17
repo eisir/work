@@ -11,6 +11,20 @@ exports.getLastTimeStr = (time, friendly) => {
         return utils.fmtDate(new Date(time), 'yyyy-MM-dd hh:mm');
     }
 };
+exports.getLastMinTimeStr=(time, friendly) => {
+    if (friendly) {
+        return utils.MillisecondToDate(time);
+    } else {
+        return utils.fmtDate(new Date(time), 'yyyy-MM-dd hh:mm:ss');
+    }
+};
+exports.getDate = (time, friendly) => {
+    if (friendly) {
+        return utils.MillisecondToDate(time);
+    } else {
+        return utils.fmtDate(new Date(time), 'MM-dd');
+    }
+};
 exports.getLastTimeShort = (time, friendly) => {
     if (friendly) {
         return utils.MillisecondToDate(time);

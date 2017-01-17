@@ -29,19 +29,22 @@ var myChart
       myChart.setOption(option);
 
 
+
       
     },
     computed:{
-      getData(){
+      getData(){        
         return this.$store.state.xdDayData;
       }
     },
     watch:{
       getData:function(val){
-        this.loading=false;
-        // console.log(val);
-        Setting._data=val;
-        myChart.setOption(Setting.option());
+        if(!this.$store.state.alertMapOpen){
+          Setting._data=val;
+          myChart.setOption(Setting.option());
+
+          this.loading=false;
+        } 
       }
     }
   }

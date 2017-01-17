@@ -38,17 +38,19 @@ export default {
     changeXdList(state,data){
       state.xdListData=data
     },
-    changeXdMap(state,data){      
-      // data.cityData=data.cityData.sort(function(a, b) {
-      //     return b.value - a.value;
-      // });
+    changeXdMap(state,data){
+      if(data.cityData)  {
+        data.cityData=data.cityData.sort(function(a, b) {
+            return b.value - a.value;
+        });
+      }
       state.xdMapData=data
     },
     changeMapCity(state,data){
       
       state.xdCityData=data
     },
-    changeXdDay(state,data){
+    changeXdDay(state,data){      
       state.xdDayData=data
     },
     changeXdTrade(state,data){
@@ -95,7 +97,7 @@ export default {
       
       // let url='ws://10.1.22.80:55081/bigdatacenter-bam-web/'+para
      
-      getDatas(url,function(data){        
+      getDatas(url,function(data){      
         let tmpData = {}
         data.forEach(function(n,index){
           let _type = n.type;

@@ -7,10 +7,15 @@
           ws.onmessage=function(e){
             var str =e.data
             var str=eval("(" + str + ")");
-            fn(str);
+            fn(str)
           }
+
+
+          setInterval(sendMessage, 60000);
+
+
           function sendMessage() {
-              ws.send('123');
+              ws.send('send msg');
           }
         }
 
