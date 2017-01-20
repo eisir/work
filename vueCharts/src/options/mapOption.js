@@ -41,10 +41,11 @@ option = {
         // splitNumber:5,
         // min:0,
         // max:1000,
-        pieces:  [
-                {min: 3000,label:'>3000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
-                {min: 1000, max: 3000,color:'#ff2900'},
-                {min: 200, max: 1000,color:'#fd9580'},
+        pieces: [
+                {min: 1000,label:'>1000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
+                {min: 600, max: 1000,color:'#e23819'},
+                {min: 400, max: 600,color:'#ff994e'},
+                {min: 200, max: 400,color:'#fd9580'},
                 {min: 20, max: 200,color:'#fdcdc5'},
                 {max: 20,label:'<20',color:'#fdf1ef'}     // 不指定 min，表示 min 为无限大（-Infinity）。
             ],
@@ -184,7 +185,7 @@ option = {
         },
         itemStyle: {
             normal: {
-                color: '#fe55fe',
+                color: '#15ecc6',
             }
         },
         zlevel: 4,

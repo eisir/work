@@ -19,8 +19,8 @@
         </div>
       </div>
     </div>
-    <div class="list">
-      <div class="item" v-for="item in lists">
+    <transition-group name="list" tag="div" class="list">
+      <div class="item" v-for="item in itemList" v-bind:key="item.collectTimeFmt">
         <div class="number">
           <p>{{item.mobile}}</p>
         </div>
@@ -34,7 +34,7 @@
           <p>{{item.collectTimeFmt|getLastMinTimeStr}}</p>
         </div>
       </div>
-    </div>
+    </transition-group>
     <div class="loading" v-show='loading'>
        <div class="bg"></div>
        <div class="text">loading...</div>
@@ -43,7 +43,6 @@
 </template>
 
 <script>
-
   export default{
     data(){
       return{
@@ -110,36 +109,43 @@
             applyamt:'18000',
             collectTimeFmt:'2016-09-09 12:00'
           }
-        ]
+        ],
+        temArr:[],
+        listState:0
       }
     },
     mounted(){
-        let _this=this       
-      
-        
-        // fetch('/static/data/xd_1/data_1.json').then(function(response) {
-        //   return response.json()
-        // }).then((json)=>{
-        //   _this.items=json
-        // }).catch(function(ex) {
-        //   console.log('parsing failed', ex)
-        // })
 
     },
     computed:{
       lists(){
         return this.$store.state.xdListData
+      },
+      itemList(){
+        let arr=[];
+        if(this.listState==0){
+          arr=this.lists;
+          this.temArr=this.lists;
+          this.listState=1;
+        }else{
+          this.temArr=[].concat(this.temArr).reverse().concat(this.lists.reverse()).reverse();
+          arr=this.temArr.slice(0,10);
+        }
+        return arr
       }
     },
     watch:{
       lists(val){
         this.loading=false;
-        this.items=Object.assign({},this.items,val)
+        // console.log(val);
+        this.items.push(val);
+        this.items=this.items.slice(-10);
+        // this.temArr.unshift(val);
       }
     }
   }
 </script>
-<style scoped>
+<style scoped lang="scss">
   .title{
     margin-top: 10px;
     margin-bottom: 10px;
@@ -183,11 +189,30 @@
   }
   .list{
     flex:1;
-    display: flex;
     flex-direction: column;
     margin-bottom: 10px;
   }
   .list .item{
-    flex:1;
+    height: 10%;
+    width: 100%;
+  }
+
+
+  .list .item{
+    transition: all .3s;
+  }
+ 
+  .list-enter{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  .list-enter-active { 
+  } 
+  .list-leave-to{    
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .list-leave-active{    
+    position: absolute;
   }
 </style>

@@ -123,7 +123,7 @@ import xdList from './chartsCHild/xdList'
   }
   .mapBd .mapInner{
     height: 90%;
-    width:80%;
+    width:90%;
     margin: 2% auto 0;
   }
   .closeBtn{

@@ -9,7 +9,6 @@ import fetch from 'whatwg-fetch'
 import storeConfig from '../../store/index'
 
 
-
 Object.keys(filters).forEach(k => Vue.filter(k, filters[k]));
 
 

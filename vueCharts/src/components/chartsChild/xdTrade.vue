@@ -38,7 +38,10 @@ var myChart
       getData:function(val){
         if(!this.$store.state.alertMapOpen){          
           Setting._data=val;
-          myChart.setOption(Setting.option());
+          
+          // Queue.add(function(){
+            myChart.setOption(Setting.option());
+          // },'trade');
           this.loading=false;
         }
       }

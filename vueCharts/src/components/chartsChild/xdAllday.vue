@@ -40,9 +40,10 @@ var myChart
     watch:{
       getData:function(val){
         if(!this.$store.state.alertMapOpen){
-          Setting._data=val;
-          myChart.setOption(Setting.option());
-
+          Setting._data=val;          
+          // Queue.add(function(){
+            myChart.setOption(Setting.option());
+          // },'allday');
           this.loading=false;
         } 
       }

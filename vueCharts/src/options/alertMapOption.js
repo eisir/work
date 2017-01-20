@@ -32,19 +32,23 @@ option = {
         // min:0,
         // max:1000,
         pieces: [
-                {min: 3000,label:'>3000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
-                {min: 1000, max: 3000,color:'#ff2900'},
-                {min: 200, max: 1000,color:'#fd9580'},
+                {min: 1000,label:'>1000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
+                {min: 600, max: 1000,color:'#e23819'},
+                {min: 400, max: 600,color:'#ff994e'},
+                {min: 200, max: 400,color:'#fd9580'},
                 {min: 20, max: 200,color:'#fdcdc5'},
                 {max: 20,label:'<20',color:'#fdf1ef'}     // 不指定 min，表示 min 为无限大（-Infinity）。
             ],
         textStyle: {
-            color: '#000'
+            color: '#000',
+            fontSize: '18'
         },
         inverse:false,
         left: '40',
         bottom: '10',
-        itemHeight:20,
+        itemHeight:30,
+        itemWidth:30,
+        itemGap:20,
         hoverLink:false,         // 文本，默认为数值文本
         calculable: true,
         seriesIndex:2,
@@ -52,7 +56,7 @@ option = {
     },
     geo: {
         map: 'china',
-        left:'100',
+        // left:'10%',
         top:'0',
         bottom: '10',
         label: {
@@ -137,7 +141,7 @@ option = {
         name: '各省市今日业务情况',
         type: 'map',
         mapType: 'china',
-        left:'100',
+        // left:'10%',
         top:0,
         bottom:'10',
         data:[],
@@ -179,7 +183,7 @@ option = {
               },
         itemStyle: {
             normal: {
-                color: '#fe55fe',
+                color: '#15ecc6',
             }
         },
         zlevel:4,

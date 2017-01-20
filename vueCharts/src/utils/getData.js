@@ -9,6 +9,9 @@
             var str=eval("(" + str + ")");
             fn(str)
           }
+          ws.onerror=function(){
+            ws = new WebSocket(_url);
+          }
 
 
           setInterval(sendMessage, 5000);
