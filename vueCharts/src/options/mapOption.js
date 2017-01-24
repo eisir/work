@@ -229,6 +229,7 @@ function randomData() {
 let Setting={
     index:0,
     theme:0,
+    _initStart:true,
     _data:[],
     _cityData:[],
     _efData:[],

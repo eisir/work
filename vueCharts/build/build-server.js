@@ -54,7 +54,7 @@ fs.exists(pathname,function(exists){
 		}
 	});
 
-}).listen(port, "127.0.0.1",()=>{
+}).listen(port,()=>{
 	let url = util.format('http://%s:%d', 'localhost', port)
 
     console.log('Listening at %s', url)

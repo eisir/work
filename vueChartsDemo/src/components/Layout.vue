@@ -61,6 +61,7 @@ import xdList from './chartsCHild/xdList'
         // console.log(e.keyCode);
         if(e.keyCode==27){
           _this.showAlert=false;
+          _this.$store.commit('changeAlertMap',false);
         }
 
         // this.$store.dispatch('getData',{xd:true});
@@ -72,8 +73,10 @@ import xdList from './chartsCHild/xdList'
         
           if(!_this.mapAlert){
             _this.mapAlert=true;
+            _this.$store.commit('changeAlertMap',true);
           }else{
             _this.showAlert=true
+            _this.$store.commit('changeAlertMap',true);
           }
           // console.log('show');
         }
@@ -120,7 +123,7 @@ import xdList from './chartsCHild/xdList'
   }
   .mapBd .mapInner{
     height: 90%;
-    width:80%;
+    width:90%;
     margin: 2% auto 0;
   }
   .closeBtn{

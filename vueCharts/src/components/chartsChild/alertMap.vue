@@ -40,7 +40,6 @@ var myChart,oldNode;
       Setting.theme=this.$store.state.theme;
       var option=Setting._option(); 
       myChart.setOption(option);
-      console.log(this.getData);
     },
     computed:{
       getData(){
@@ -88,22 +87,23 @@ var myChart,oldNode;
             }
             if(arrData.length>0){
               Setting._efData=arrData
-              // Queue.add(function(){
                 myChart.setOption(Setting.option());
-                // setTimeout(function(){
+                setTimeout(function(){
+                  var t=+new Date();
                   myChart.setOption({
                       series:[{},{},{},{
                         data:[]
                       }]
-                    });
-                // }, 0);  
-              // },'map01');
+                    },false,false);
+                  Setting._efData=[];
+                  }, 500); 
               
                    
-            }else{
-              // Queue.add(function(){
+            }
+            if(Setting._initStart){                
                 myChart.setOption(Setting.option());
-              // },'map01');
+                
+                Setting._initStart=false;
             }
           }
           this.loading=false;

@@ -80,7 +80,7 @@ var myChart,oldNode;
       myChart = echarts.init(oldNode);
       Setting.theme=this.$store.state.theme;
       var option=Setting._option();      
-      myChart.setOption(option); 
+      myChart.setOption(option);
     },
     computed:{
       getData(){
@@ -92,6 +92,7 @@ var myChart,oldNode;
     },
     watch:{
       getData:function(val){
+        
         if(!this.$store.state.alertMapOpen){
           if(val.pData){
             Setting._data=val.pData;
@@ -106,12 +107,14 @@ var myChart,oldNode;
               }
             });
             
-            let _oData=myChart.getOption().series[0].data    
+            let _oData=myChart.getOption().series[0].data  
+
+
           
           
             let effectData={}
             let oldData={}
-            
+
             _oData.forEach(function(n,index){
               oldData[n.name]=n.value;
             })
@@ -137,23 +140,23 @@ var myChart,oldNode;
             }
             if(arrData.length>0){
               Setting._efData=arrData
-              // Queue.add(function(){
                 myChart.setOption(Setting.option());
-                // setTimeout(function(){
+                setTimeout(function(){
                     myChart.setOption({
                       series:[{},{},{},{
                         data:[]
                       }]
                     });
-                // }, 500);
-              // },'map01');
+                    Setting._efData=[];
+                }, 500);
               
                    
-            }else{
-              // Queue.add(function(){
-                myChart.setOption(Setting.option());
-              // },'map01');
             }
+            if(Setting._initStart){              
+              myChart.setOption(Setting.option());              
+              Setting._initStart=false;
+            }
+
           }
         }
         this.loading=false;

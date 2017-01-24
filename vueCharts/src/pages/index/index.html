@@ -7,52 +7,6 @@
     <title>拉卡拉金融大屏展示系统</title>
     <script>
       var _prd_url="";
-      
-      var Queue = {
-        _ranks:[],
-        _run:false,
-        add:function(fn,id){
-          let _has=false;
-          if(this._ranks.length>0){
-            this._ranks.forEach((n,index)=>{
-              if(n.id==id){
-                this._ranks[index].fn = fn;
-                _has = true;
-              }
-            });      
-          }
-          if(!_has){
-            this._ranks.push({fn:fn,id:id})
-          }
-          if(this._run == false){            
-            setTimeout(()=>{
-              // console.log(this._run+'2');
-            
-                this.do();
-                         
-            
-            }, 0); 
-          }
-
-        },
-        do: function(){
-          
-            this._run=true;
-
-            if(this._ranks.length>0){
-              let _fn=this._ranks[0].fn;
-              this._ranks.shift();   
-              _fn();
-              setTimeout(()=>{
-                this.do();
-              }, 0); 
-            }else{
-              this._run=false;
-            }
-          
-        }
-      }
-
     </script>
   </head>
   <body>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/node_modules/echarts/dist/echarts.min.js"></script>
+  <script src="./js/node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="./js/node_modules/echarts/map/js/china.js"></script>
+</head>
+<body>
+  <div class="mapBd">
+    <div class="mapInner">
+      <div class="main">
+        <div class="inner">
+          <div id="main" class="canvas"></div>
+        </div>
+        <div class="dataList"></div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var myChart = echarts.init(document.getElementById('main'));
+</script>
+<script src="./js/geo.js"></script>
+<script src="./js/getData.js"></script>
+<script src="./js/grid.js"></script>
+<script>
+$(function(){
+  var option=Setting._option();
+      myChart.setOption(option); 
+
+
+  var url='ws://101.231.207.223:58083/bigdatacenter-bam-web/chart/loanWebSocketServer';
+  getData(url,function(data){
+    var tmpData = {}
+    data.forEach(function(n,index){
+      let _type = n.type;
+      let _data = n.data;
+      if(_type=='001'){
+        tmpData.pData=_data
+      }else if(_type=='013'){
+        tmpData.cityData=_data
+        
+      }
+    });
+    if(tmpData.pData||tmpData.cityData){
+      
+      var val=tmpData;      
+      if(val.pData){
+        Setting._data=val.pData;
+      }
+      if(val.cityData){
+        Setting._cityData=val.cityData;       
+        this.items=val.cityData.slice(0,10);
+        let _oData=myChart.getOption().series[0].data  
+        let effectData={}
+        let oldData={}
+        
+        _oData.forEach(function(n,index){
+          oldData[n.name]=n.value;
+        })
+        let tempO={}
+        val.cityData.forEach(function(n){
+          tempO[n.name]=n.value
+        })
+        var i=0,arrData=[]
+        console.log('data');
+        for(let k in oldData){
+          if(tempO[k]){
+            if(oldData[k][2]!=tempO[k]){
+              effectData[k]=tempO[k];
+
+              arrData[i]={};
+              arrData[i].name=k;
+              arrData[i].value=oldData[k];
+              arrData[i].value[2]=tempO[k]
+              i++;
+
+            }
+          }
+        }
+        if (arrData.length > 0) {
+          Setting._efData = arrData
+          console.log(arrData);
+          // setTimeout(function(){
+          console.log("city-");
+          myChart.setOption(Setting.option());
+          console.log("city");
+          setTimeout(function() {
+            var t = +new Date();
+            console.log("effcity");
+            myChart.setOption({
+              series: [{}, {}, {}, {
+                data: []
+              }]
+            });
+            console.log(+new Date - t);
+            // console.log(2);
+          }, 500);
+          // }, 0);  
+
+
+        } else {
+          // Queue.add(function(){
+          Setting._efData = [];
+          myChart.setOption(Setting.option());
+          // },'map01');
+        }
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+  });
+});
+</script>
+</html>

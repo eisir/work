@@ -29,21 +29,23 @@ var myChart
       myChart.setOption(option);
 
 
+
       
     },
     computed:{
-      getData(){
+      getData(){        
         return this.$store.state.xdDayData;
       }
     },
     watch:{
       getData:function(val){
-        this.loading=false;
-        // console.log(val);
-        Setting._data=val;
-        let t=(new Date()).getTime();
-        myChart.setOption(Setting.option());
-        console.log((new Date()).getTime()-t);
+        if(!this.$store.state.alertMapOpen){
+          Setting._data=val;          
+          // Queue.add(function(){
+            myChart.setOption(Setting.option());
+          // },'allday');
+          this.loading=false;
+        } 
       }
     }
   }

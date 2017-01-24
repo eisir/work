@@ -41,10 +41,11 @@ option = {
         // splitNumber:5,
         // min:0,
         // max:1000,
-        pieces:  [
-                {min: 3000,label:'>3000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
-                {min: 1000, max: 3000,color:'#ff2900'},
-                {min: 200, max: 1000,color:'#fd9580'},
+        pieces: [
+                {min: 1000,label:'>1000',color:'#ae1922'}, // 不指定 max，表示 max 为无限大（Infinity）。
+                {min: 600, max: 1000,color:'#e23819'},
+                {min: 400, max: 600,color:'#ff994e'},
+                {min: 200, max: 400,color:'#fd9580'},
                 {min: 20, max: 200,color:'#fdcdc5'},
                 {max: 20,label:'<20',color:'#fdf1ef'}     // 不指定 min，表示 min 为无限大（-Infinity）。
             ],
@@ -55,8 +56,7 @@ option = {
         left: '40',
         bottom: '20',
         itemHeight:20,
-        hoverLink:false,         // 文本，默认为数值文本
-        calculable: true,
+        hoverLink:false,   
         seriesIndex:2,
         // color:['#fa6a4f','#fde7d9'] 
     },
@@ -67,9 +67,10 @@ option = {
         bottom: '20',
         label: {
             emphasis: {
-                show: false
+                show: true
             }
         },
+        silent:false,
         roam: false,
         itemStyle: {
             normal: {
@@ -128,7 +129,7 @@ option = {
         rippleEffect: {
             brushType: 'stroke'
         },
-        hoverAnimation: true,
+        hoverAnimation: false,
         label: {
             normal: {
                 formatter: '{b}',
@@ -152,6 +153,9 @@ option = {
         bottom:'20',
         data:[],
         zlevel:1,
+        roam:false,
+        silent:false,
+        geoIndex:0,
         itemStyle: {
             normal:{
                 borderColor:'#fff'
@@ -159,7 +163,7 @@ option = {
             emphasis: {
                 areaColor:'#ff994e'
             }
-        },
+        }
     },{
         name: ' ',
         type: 'scatter',
@@ -168,7 +172,10 @@ option = {
         rippleEffect: {
             brushType: 'stroke'
         },
-        hoverAnimation: true,
+        symbolSize: function(val) {
+            return 8+(val[2] / 1000);
+        },
+        hoverAnimation: false,
         label: {
             normal: {
                 formatter: '{b}',
@@ -178,7 +185,7 @@ option = {
         },
         itemStyle: {
             normal: {
-                color: '#f00',
+                color: '#15ecc6',
             }
         },
         zlevel: 4,
@@ -224,6 +231,7 @@ let Setting={
     theme:0,
     _data:[],
     _cityData:[],
+    _efData:[],
     _option:function(){
         if(this.theme==1){
             option.visualMap.textStyle.color="#fff";
@@ -231,13 +239,19 @@ let Setting={
         return option
     },
     option:function(){
+        let _data1=fmCityData(this._cityData)
+        let _data2=fmCityData(this._cityData.slice(0, 10))
         return {
             series:[
             {
+                data:_data1
             },{
+                data:_data2
             },{
-               data:this._data
-            },{}
+                data:this._data
+            },{
+                data:this._efData
+            }
             ]
         };
     },

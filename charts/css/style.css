@@ -1,0 +1,78 @@
+html,body{
+  height: 100%;
+  width: 100%;
+}
+.mapBd{
+    position: absolute;
+    z-index: 10000;
+    width:100%;
+    height: 100%;
+    left: 0;
+    top:0;
+    background-color: #fff;
+  }
+  .theme_kj .mapBd{
+    background-size: 100%;
+    background-image: url('../assets/img/theme_kj.png');
+  }
+  .mapBd .mapInner{
+    height: 90%;
+    width:90%;
+    margin: 2% auto 0;
+  }
+  .main{
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  .main>.inner{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0
+  }
+  .main>.inner>.canvas{
+    width: 100%;
+    height: 100%;
+  }
+
+ .main{
+    position: relative;
+  }
+  .dataList{
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    margin-top: -5rem;
+    width: 10rem;
+    display:flex;
+    flex-direction: column;
+    height: 20rem;
+    /*border: 1px solid #ddd;*/
+  }
+  .dataList .item{
+    display: flex;
+    height: 10%;
+    flex-direction: row;
+    flex:1;
+  }
+  .dataList .item>div{
+    text-align: left;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+  .dataList .item div.label{
+    text-align: left;
+    /*flex:1;*/
+  }
+  .dataList .item div.data{
+    /*width:4rem;*/
+    padding-left: 1rem;
+    text-align: left;
+  }
+  .theme_kj .dataList .item{
+    color: #fff;
+  }

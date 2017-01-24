@@ -183,7 +183,7 @@ option = {
               },
         itemStyle: {
             normal: {
-                color: '#15ecc6',
+                color: '#15ecc6'
             }
         },
         zlevel:4,
@@ -227,6 +227,7 @@ function randomData() {
 let Setting={
     index:0,
     theme:0,
+    _initStart:true,
     _data:[],
     _cityData:[],
     _efData:[],
